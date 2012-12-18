@@ -17,9 +17,9 @@
    <widget class="SketchViewer" name="widget" native="true">
     <property name="geometry">
      <rect>
-      <x>0</x>
+      <x>10</x>
       <y>50</y>
-      <width>1101</width>
+      <width>1091</width>
       <height>811</height>
      </rect>
     </property>
