@@ -73,6 +73,7 @@ protected:
 	void mouseReleaseEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 	void wheelEvent(QWheelEvent *event);
+	void keyPressEvent(QKeyEvent *event);
 	void timerEvent(QTimerEvent *event);
 
 	//total render function

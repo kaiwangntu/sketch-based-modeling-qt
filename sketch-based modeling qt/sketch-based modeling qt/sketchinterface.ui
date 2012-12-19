@@ -23,6 +23,9 @@
       <height>811</height>
      </rect>
     </property>
+    <property name="focusPolicy">
+     <enum>Qt::StrongFocus</enum>
+    </property>
    </widget>
    <widget class="QToolBox" name="toolBox">
     <property name="geometry">
