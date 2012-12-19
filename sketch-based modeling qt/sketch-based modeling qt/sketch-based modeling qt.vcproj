@@ -357,6 +357,18 @@
 			ParseFiles="false"
 			>
 			<File
+				RelativePath=".\Resources\paintROI.gif"
+				>
+			</File>
+			<File
+				RelativePath=".\Resources\pencil.gif"
+				>
+			</File>
+			<File
+				RelativePath=".\Resources\rotate.gif"
+				>
+			</File>
+			<File
 				RelativePath=".\sketchinterface.qrc"
 				>
 				<FileConfiguration
@@ -381,6 +393,14 @@
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\smooth.gif"
+				>
+			</File>
+			<File
+				RelativePath=".\Resources\zoom.gif"
+				>
 			</File>
 		</Filter>
 		<Filter

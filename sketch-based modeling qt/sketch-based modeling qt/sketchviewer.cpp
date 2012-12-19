@@ -1,6 +1,6 @@
 #include "sketchviewer.h"
 #include "ArcBall.h"
-
+#include <QMouseEvent>
 
 SketchViewer::SketchViewer(QWidget *parent)
 	: QGLWidget(parent)
@@ -117,21 +117,412 @@ void SketchViewer::Reset(bool bInitial)
 
 void SketchViewer::mousePressEvent(QMouseEvent *event)
 {
+	//KillTimer(TIMER_PLANE_ROTATE);
+	//KillTimer(TIMER_PLANE_WAIT_TO_ROTATE);
+
+	//CKWResearchWorkDoc* pDoc=GetDocument();
+
+	QPoint point=event->pos();
+	Qt::MouseButton PressedButton=event->button();
+
+	g_iLastPosX  = point.x();
+	g_iLastPosY  = point.y();
+
+	if (PressedButton==Qt::LeftButton)
+	{
+		//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+		//{
+		//	ProcessMouseHit(point,MOUSE_LEFT_BUTTON_HIT);
+		//	if ((pDoc->GetRBSelName()==NONE_SELECTED)||(pDoc->GetLBSelName()!=pDoc->GetRBSelName())
+		//		|| (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
+		//	{
+				Point2fT    MousePt;// NEW: Current Mouse Point
+				LastRot=ThisRot;// Set Last Static Rotation To Last Dynamic One
+				MousePt.s.X=point.x();
+				MousePt.s.Y=point.y();
+				ArcBall.click(&MousePt);// Update Start Vector And Prepare For Dragging
+				this->setCursor(*qCursor_Rotate);
+		//	}
+		//	else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
+		//	{
+		//	}
+		//}
+		//else if (pDoc->GetManipMode()==SKETCH_MODE)
+		//{
+		//	if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED))
+		//	{
+		//		if (pDoc->GetMeshCreation().CheckPlaneState())
+		//		{
+		//			pDoc->GetMeshCreation().Input2DProfilePoint(point);
+		//		}
+		//	}
+		//	else if (pDoc->GetEditMode()==EDITING_MODE)
+		//	{
+		//		pDoc->GetMeshCreation().Input2DProfilePoint(point);
+		//	}
+		//	else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+		//	{
+		//		if ((GetKeyState(0x52)<0))////R key pressed,curve to circle the ROI
+		//		{
+		//			if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+		//			{
+		//				pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_CIRCLE_ROI);
+		//				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+		//			}
+		//		}
+		//		else if (GetKeyState(0x50)<0)//P key pressed,points to paint the ROI
+		//		{
+		//			SetCursor(hCursor_PaintROI);
+		//			if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+		//			{
+		//				pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_PAINT_ROI);
+		//				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+		//				pDoc->GetMeshDeformation().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+		//			}
+		//		}
+		//		else 
+		//		{
+		//			pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+		//		}
+		//	}
+		//	else if (pDoc->GetEditMode()==CUTTING_MODE)
+		//	{
+		//		pDoc->GetMeshCutting().InputCurvePoint2D(point);
+		//	}
+		//	else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+		//	{
+		//		pDoc->GetMeshExtrusion().InputCurvePoint2D(point);
+		//	}
+		//	else if (pDoc->GetEditMode()==SMOOTHING_MODE)
+		//	{
+		//		SetCursor(hCursor_Smooth);
+		//		pDoc->GetMeshSmoothing().Init(pDoc);
+		//		pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
+		//		pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+		//	}
+		//}
+	}
+	else if (PressedButton==Qt::RightButton)
+	{
+		//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+		//{
+		//	ProcessMouseHit(point,MOUSE_RIGHT_BUTTON_HIT);
+		//	if (pDoc->GetRBSelName()==NONE_SELECTED)
+		//	{
+				this->setCursor(*qCursor_Move);
+		//		if (pDoc->GetEditMode()==CREATION_MODE)
+		//		{
+		//			pDoc->GetMeshCreation().SetDrawingPlane();
+		//		}
+		//		else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+		//		{
+		//			pDoc->GetMeshDeformation().SetSelectedItem();
+		//		}
+		//		else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+		//		{
+		//			pDoc->GetMeshExtrusion().SetSelectedItem();
+		//		}
+		//	}
+		//	else
+		//	{
+		//		if (pDoc->GetEditMode()==CREATION_MODE)
+		//		{
+		//			pDoc->GetMeshCreation().SetDrawingPlane();
+		//		}
+		//		else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+		//		{
+		//			pDoc->GetMeshDeformation().SetSelectedItem();
+		//		}
+		//		else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+		//		{
+		//			pDoc->GetMeshExtrusion().SetSelectedItem();
+		//		}
+		//	}
+		//}
+		//else if (pDoc->GetManipMode()==SKETCH_MODE)
+		//{
+		//	//do nothing
+		//}
+	}
+
+	updateGL();
 }
 
 void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
 {
+	//CKWResearchWorkDoc* pDoc=GetDocument();
 
+	Qt::MouseButton PressedButton=event->button();
+	if (PressedButton==Qt::LeftButton)
+	{
+		//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+		//{
+		//	if (pDoc->GetRBSelName()==NONE_SELECTED)
+		//	{
+		//		//do nothing
+		//	}
+		//	else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
+		//	{
+		//		if (pDoc->GetEditMode()==CREATION_MODE)//stop translation of the reference plane in creation
+		//		{
+		//			pDoc->GetMeshCreation().StopTranslateDrawingPlane();
+		//		}
+		//	}
+		//}
+		//else if (pDoc->GetManipMode()==SKETCH_MODE)
+		//{
+		//	if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED))
+		//	{
+		//		pDoc->GetMeshCreation().Convert2DProfileTo3D();
+		//	}
+		//	else if (pDoc->GetEditMode()==EDITING_MODE)
+		//	{
+		//		pDoc->GetMeshEditing().Convert2DProfileTo3D();
+		//	}
+		//	else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+		//	{
+		//		pDoc->GetMeshDeformation().Conver2DCurveTo3D(pDoc->GetMesh());
+		//	}
+		//	else if (pDoc->GetEditMode()==CUTTING_MODE)
+		//	{
+		//		pDoc->GetMeshCutting().Conver2DCurveTo3D(pDoc->GetMesh());
+		//	}
+		//	else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+		//	{
+		//		pDoc->GetMeshExtrusion().Conver2DCurveTo3D(pDoc->GetMesh());
+		//	}
+		//	else if(pDoc->GetEditMode()==SMOOTHING_MODE)
+		//	{
+		//		pDoc->GetMeshSmoothing().ClearROI();
+		//	}
+		//}
+	}
+	else if (PressedButton==Qt::RightButton)
+	{
+		//do nothing
+	}
+
+	Qt::CursorShape Arrow = Qt::ArrowCursor;
+	QCursor NormCur(Arrow);
+	this->setCursor(NormCur);
+	updateGL();
 }
 
 void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 {
+	// TODO: Add your message handler code here and/or call default
+	//CKWResearchWorkDoc* pDoc=GetDocument();
+
+	QPoint point=event->pos();
+	int g_iStepX = point.x()-g_iLastPosX;
+	int g_iStepY = point.y()-g_iLastPosY;
+
+	//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+	//{
+	//	if (((pDoc->GetRBSelName()==NONE_SELECTED))||(pDoc->GetLBSelName()!=pDoc->GetRBSelName())
+	//		|| (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
+	//	{
+			if (event->buttons()&Qt::LeftButton)
+			{
+				this->setCursor(*qCursor_Rotate);
+				Quat4fT ThisQuat;
+				Point2fT    MousePt;// NEW: Current Mouse Point
+				MousePt.s.X=point.x();
+				MousePt.s.Y=point.y();
+				ArcBall.drag(&MousePt,&ThisQuat);// Update End Vector And Get Rotation As Quaternion
+				Matrix3fSetRotationFromQuat4f(&ThisRot, &ThisQuat);// Convert Quaternion Into Matrix3fT
+				//each time the mouse is dragged,the rotation angle from the rest state is re-calculated   
+				//LastRot is only computed when the mouse is pressed        --by KW
+				Matrix3fMulMatrix3f(&ThisRot, &LastRot);// Accumulate Last Rotation Into This One
+				Matrix4fSetRotationFromMatrix3f(&Transform, &ThisRot);
+			}
+			else if (event->buttons()&Qt::RightButton)
+			{
+				this->setCursor(*qCursor_Move);
+				g_fTransX  += 0.01f*g_iStepX;
+				g_fTransY  -= 0.01f*g_iStepY;
+			}
+	//	}
+	//	else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
+	//	{
+	//		if ((pDoc->GetEditMode()==CREATION_MODE)&&(nFlags & MK_LBUTTON))//translate the reference plane in creation
+	//		{
+	//			SetCursor(hCursor_Move);
+	//			pDoc->GetMeshCreation().TranslateDrawingPlane(0.01f*g_iStepX);
+	//		}
+	//		else if (pDoc->GetEditMode()==DEFORMATION_MODE && (nFlags & MK_LBUTTON))
+	//		{
+	//			SetCursor(hCursor_Move);
+	//			pDoc->GetMeshDeformation().ManipSelItem(g_iStepX,g_iStepY);
+	//		}
+	//		else if (pDoc->GetEditMode()==EXTRUSION_MODE && (nFlags & MK_LBUTTON))
+	//		{
+	//			SetCursor(hCursor_Rotate);
+	//			pDoc->GetMeshExtrusion().ManipSelItem(g_iStepX,g_iStepY);
+	//		}
+	//	}
+	//}
+	//else if (pDoc->GetManipMode()==SKETCH_MODE)
+	//{
+	//	if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED)
+	//		&&((nFlags & MK_LBUTTON)))
+	//	{
+	//		pDoc->GetMeshCreation().Input2DProfilePoint(point);
+	//	}
+	//	else if (pDoc->GetEditMode()==EDITING_MODE && (nFlags & MK_LBUTTON))
+	//	{
+	//		pDoc->GetMeshEditing().Input2DProfilePoint(point);
+	//	}
+	//	else if (pDoc->GetEditMode()==DEFORMATION_MODE && (nFlags & MK_LBUTTON))
+	//	{
+	//		if ((GetKeyState(0x52)<0))//R key pressed,curve to circle the ROI
+	//		{
+	//			if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+	//			{
+	//				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+	//			}
+	//		}
+	//		else if (GetKeyState(0x50)<0)//P key pressed,points to paint the ROI
+	//		{
+	//			SetCursor(hCursor_PaintROI);
+	//			if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+	//			{
+	//				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+	//				pDoc->GetMeshDeformation().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+	//			}
+	//		}
+	//		else
+	//		{
+	//			pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+	//		}
+
+	//	}
+	//	else if (pDoc->GetEditMode()==CUTTING_MODE && (nFlags & MK_LBUTTON))
+	//	{
+	//		pDoc->GetMeshCutting().InputCurvePoint2D(point);
+	//	}
+	//	else if (pDoc->GetEditMode()==EXTRUSION_MODE && (nFlags & MK_LBUTTON))
+	//	{
+	//		pDoc->GetMeshExtrusion().InputCurvePoint2D(point);
+	//	}
+	//	else if (pDoc->GetEditMode()==SMOOTHING_MODE && (nFlags & MK_LBUTTON))
+	//	{
+	//		//if (GetKeyState(0x46)<0)//f key pressed,scratch to smooth
+	//		//{
+	//		SetCursor(hCursor_Smooth);
+	//		pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
+	//		pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+	//		//}
+	//	}
+	//}
+
+	g_iLastPosX  = point.x();
+	g_iLastPosY  = point.y();
+
+	updateGL();
 }
 
 void SketchViewer::wheelEvent(QWheelEvent *event)
 {
+	// TODO: Add your message handler code here and/or call default
+	//KillTimer(TIMER_PLANE_ROTATE);
+	//KillTimer(TIMER_PLANE_WAIT_TO_ROTATE);
+	//CKWResearchWorkDoc* pDoc=GetDocument();
+
+	//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+	//{
+	//	if (pDoc->GetRBSelName()==NONE_SELECTED || (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
+	//	{
+			// middle mouse button
+			this->setCursor(*qCursor_Zoom);
+			if(event->delta()>0)
+			{
+				g_fZoom+=0.15;
+			}
+			else
+			{
+				g_fZoom-=0.15;
+			}
+	//	}
+	//	else if (pDoc->GetEditMode()==CREATION_MODE)
+	//	{
+	//		pDoc->GetMeshCreation().AdjustPlaneBoundary(zDelta);
+	//	}
+	//	else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+	//	{
+	//		pDoc->GetMeshDeformation().AdjustPlaneBoundary(zDelta);
+	//	}
+	//	else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+	//	{
+	//		pDoc->GetMeshExtrusion().AdjustPlaneBoundary(zDelta);
+	//	}
+	//}
+	//else if (pDoc->GetManipMode()==SKETCH_MODE)
+	//{
+	//	//do nothing
+	//}
+
+	updateGL();
 }
 
+void SketchViewer::keyPressEvent(QKeyEvent *event)
+{
+	//keyboard messages
+	if (event->count()>1)
+	{
+		return;
+	}
+
+	//KillTimer(TIMER_PLANE_ROTATE);
+	//KillTimer(TIMER_PLANE_WAIT_TO_ROTATE);
+	//CKWResearchWorkDoc* pDoc=GetDocument();
+	if(event->key()==Qt::Key_Enter)
+	{
+	//	if (pDoc->GetEditMode()==CREATION_MODE)
+	//	{
+	//		if (pDoc->GetMeshCreation().FitLastPlaneCurves())
+	//		{
+	//			pDoc->GetMeshCreation().GenerateMesh(pDoc->GetMesh(),pDoc->GetDefaultColor());
+	//		}
+	//	}
+	}
+	else if (event->key()==Qt::Key_Escape)
+	{
+	//	if (pDoc->GetEditMode()==CREATION_MODE)
+	//	{
+	//		pDoc->GetMeshCreation().CancelLastInput();
+	//	}
+	}
+	else if (event->key()==Qt::Key_Delete)
+	{
+	//	if (pDoc->GetEditMode()==CREATION_MODE)
+	//	{
+	//		pDoc->GetMeshCreation().DeleteSpecifiedCS();
+	//	}
+	}
+	else if (event->key()==Qt::Key_F1)
+	{
+	//	if (pDoc->GetEditMode()==CREATION_MODE)
+	//	{
+	//		pDoc->GetMeshCreation().CopyCNFromLastParaPlane(0);
+	//	}
+	}
+	else if (event->key()==Qt::Key_F2)
+	{
+	//	if (pDoc->GetEditMode()==CREATION_MODE)
+	//	{
+	//		pDoc->GetMeshCreation().CopyCNFromLastParaPlane(1);
+	//	}
+	}
+	else if (event->key()==Qt::Key_F3)
+	{
+	//	if (pDoc->GetEditMode()==CREATION_MODE)
+	//	{
+	//		pDoc->GetMeshCreation().CopyCNFromLastParaPlane(2);
+	//	}
+	}
+	updateGL();
+}
 
 void SketchViewer::ProcessMouseHit(QPoint point,int iButton)
 {
@@ -452,14 +843,6 @@ void SketchViewer::Render(GLenum mode)
 
 	glPopMatrix();
 
-	//QCursor* qCursor_Rotate;
-	//QCursor* qCursor_Move;
-	//QCursor* qCursor_Zoom;
-	//QCursor* qCursor_PaintROI;
-	//QCursor* qCursor_Smooth;
-	//QCursor* qCursor_Pencil;
-
-//	this->setCursor(*qCursor_Pencil);
 }
 
 
