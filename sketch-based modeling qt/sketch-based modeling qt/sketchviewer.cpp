@@ -15,18 +15,32 @@ SketchViewer::SketchViewer(QWidget *parent)
 	Matrix3fSetIdentity(&ThisRot);	// Reset Rotation
 
 	g_fZoom = 0.0f;g_fTransX = 0.0f;g_fTransY = 0.0f;
-	//hCursor_Rotate=AfxGetApp()->LoadCursor(IDC_ROTATE);
-	//hCursor_Move=AfxGetApp()->LoadCursor(IDC_MOVE);
-	//hCursor_Zoom=AfxGetApp()->LoadCursor(IDC_ZOOM);
-	//hCursor_PaintROI=AfxGetApp()->LoadCursor(IDC_PAINTROI);
-	//hCursor_Smooth=AfxGetApp()->LoadCursor(IDC_SMOOTH);
-	//hCursor_Pencil=AfxGetApp()->LoadCursor(IDC_PENCIL);
+
+
+	Qt::CursorShape MoveCur = Qt::OpenHandCursor;
+	this->qCursor_Move=new QCursor(MoveCur);
+	QPixmap PixRotate("Resources//rotate.gif");
+	this->qCursor_Rotate= new QCursor(PixRotate);
+	QPixmap PixZoom("Resources//zoom.gif");
+	this->qCursor_Zoom= new QCursor(PixZoom);
+	QPixmap PixpaintROI("Resources//paintROI.gif");
+	this->qCursor_PaintROI= new QCursor(PixpaintROI);
+	QPixmap Pixsmooth("Resources//smooth.gif");
+	this->qCursor_Smooth= new QCursor(Pixsmooth);
+	QPixmap Pixpencil("Resources//pencil.gif");
+	this->qCursor_Pencil= new QCursor(Pixpencil);
+
 	g_iLastPosX=0;g_iLastPosY=0;
 }
 
 SketchViewer::~SketchViewer()
 {
-
+	delete this->qCursor_Move;
+	delete this->qCursor_Rotate;
+	delete this->qCursor_Zoom;
+	delete this->qCursor_PaintROI;
+	delete this->qCursor_Smooth;
+	delete this->qCursor_Pencil;
 }
 
 void SketchViewer::initializeGL()
@@ -54,19 +68,10 @@ void SketchViewer::initializeGL()
 
 void SketchViewer::resizeGL(int width, int height)
 {
-	////proces resize keep good aspect ratio for 3D scene
-	//glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//int side = qMin(width, height);
-	//glViewport((width - side) / 2, (height - side) / 2, side, side);
-
-	//// glViewport(0, 0, width, height);
-
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-	//gluPerspective(45.0, (GLfloat)width/(GLfloat)height, 0.01f, 1000.0f);
-	//glMatrixMode(GL_MODELVIEW);
-
+	if (height<=0)
+	{
+		return;
+	}
 
 	this->ArcBall.setBounds(width,height);
 
@@ -89,23 +94,6 @@ void SketchViewer::resizeGL(int width, int height)
 
 void SketchViewer::paintGL()
 {
-	////draw scene here
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glLoadIdentity();
-
-	////glColor3f(0,1,1);
-	////this->renderText(100,50,QString("Test Mode0 Test Mode1 Test Mode2 Test Mode3"),QFont("Arial",static_cast<int>(1*20)));
-
-	//glTranslated(0.0, 0.0, -1.0);
-
-	//glColor3f(0,1,0);
-	//glPointSize(5);
-	//glBegin(GL_POINTS);
-	//glVertex3d(-1,0,0);
-	//glVertex3d(0,0,0);
-	//glVertex3d(-0.5,1,0);
-	//glEnd();
-
 	Render(GL_RENDER);
 }
 
@@ -129,13 +117,21 @@ void SketchViewer::Reset(bool bInitial)
 
 void SketchViewer::mousePressEvent(QMouseEvent *event)
 {
-	//proces mouse events for rotate/move inside 3D scene
+}
+
+void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
+{
+
 }
 
 void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 {
-	//proces keyboard events
 }
+
+void SketchViewer::wheelEvent(QWheelEvent *event)
+{
+}
+
 
 void SketchViewer::ProcessMouseHit(QPoint point,int iButton)
 {
@@ -189,7 +185,7 @@ int SketchViewer::GetSelectName(GLint hits, GLuint buffer[])
 	const float fErrThre=0.0003;
 	int iMaxName=NONE_SELECTED;
 
-	cout<<"hits = %d\n"<<hits;
+	cout<<"hits = "<<hits<<endl;;
 	ptr = (GLuint *) buffer;
 	for (int i = 0; i < hits; i++) 
 	{
@@ -233,7 +229,7 @@ int SketchViewer::GetSelectName(GLint hits, GLuint buffer[])
 		}
 		//DBWindowWrite("\n");
 	}
-	cout<<"select name: %d\n"<<iMaxName;
+	cout<<"select name: "<<iMaxName<<endl;
 	return iMaxName;
 }
 
@@ -454,9 +450,16 @@ void SketchViewer::Render(GLenum mode)
 	//}
 
 
-
-
 	glPopMatrix();
+
+	//QCursor* qCursor_Rotate;
+	//QCursor* qCursor_Move;
+	//QCursor* qCursor_Zoom;
+	//QCursor* qCursor_PaintROI;
+	//QCursor* qCursor_Smooth;
+	//QCursor* qCursor_Pencil;
+
+//	this->setCursor(*qCursor_Pencil);
 }
 
 

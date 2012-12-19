@@ -655,7 +655,7 @@ bool CMath::ComputeLSE(SparseMatrix LeftMatrixA, std::vector<std::vector<double>
 		delete [] WORK;
 
 		clock_t SolveEnd=clock();
-		cout<<"Solving time: %f"<<float(SolveEnd-SolveBegin)<<endl;
+		cout<<"Solving time: "<<float(SolveEnd-SolveBegin)<<endl;
 
 		return true;
 	}
@@ -1209,7 +1209,7 @@ void CMath::TAUCSFactorize(vector<vector<double> > LeftMatrixA,vector<vector<dou
 	taucs_ccs_free(A);
 
 	clock_t FactorizeEnd=clock();   
-	cout<<"Factoriz time: %f\n"<<float(FactorizeEnd-FactorizeBegin);
+	cout<<"Factoriz time: "<<float(FactorizeEnd-FactorizeBegin)<<endl;
 }
 
 void CMath::TAUCSFactorize(SparseMatrix LeftMatrixA,SparseMatrix& LeftMatrixAT)
@@ -1255,7 +1255,7 @@ void CMath::TAUCSFactorize(SparseMatrix LeftMatrixA,SparseMatrix& LeftMatrixAT)
 	assert(F!=NULL);
 
 	clock_t FactorizeEnd=clock();
-	cout<<"Factoriz time: %f\n"<<float(FactorizeEnd-FactorizeBegin)<<endl;
+	cout<<"Factoriz time: "<<float(FactorizeEnd-FactorizeBegin)<<endl; 
 }
 
 bool CMath::TAUCSComputeLSE(vector<vector<double> > LeftMatrixAT,
@@ -1310,7 +1310,7 @@ bool CMath::TAUCSComputeLSE(vector<vector<double> > LeftMatrixAT,
 
 
 	clock_t LSEEnd=clock();   
-	cout<<"compute new RHS time: %f\n"<<float(LSEEnd-LSEBegin);
+	cout<<"compute new RHS time: "<<float(LSEEnd-LSEBegin)<<endl;
 
 	for (unsigned int i=0;i<NewRHS.size();i++)
 	{
@@ -1342,7 +1342,7 @@ bool CMath::TAUCSComputeLSE(vector<vector<double> > LeftMatrixAT,
 	}
 
 	clock_t LSESolving=clock();
-	cout<<"LSE Solving time: %f\n"<<float(LSESolving-LSEEnd);
+	cout<<"LSE Solving time: "<<float(LSESolving-LSEEnd)<<endl;
 
 	return true;
 }
@@ -1373,7 +1373,7 @@ bool CMath::TAUCSComputeLSE(SparseMatrix LeftMatrixAT,vector<vector<double> > Ri
 	}
 
 	clock_t LSEEnd=clock();
-	cout<<"compute new RHS time: %f\n"<<float(LSEEnd-LSEBegin);
+	cout<<"compute new RHS time: "<<float(LSEEnd-LSEBegin)<<endl;
 
 	for (unsigned int i=0;i<NewRHS.size();i++)
 	{
@@ -1405,7 +1405,7 @@ bool CMath::TAUCSComputeLSE(SparseMatrix LeftMatrixAT,vector<vector<double> > Ri
 	}
 
 	clock_t LSESolving=clock();
-	cout<<"LSE Solving time: %f\n"<<float(LSESolving-LSEEnd);
+	cout<<"LSE Solving time: "<<float(LSESolving-LSEEnd)<<endl;
 
 	return true;
 }

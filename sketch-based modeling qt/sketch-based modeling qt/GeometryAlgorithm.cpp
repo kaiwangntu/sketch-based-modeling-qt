@@ -95,9 +95,9 @@ void KW_Mesh::buildFacesIndices()
 
 void KW_Mesh::clear()
 {
-	cout<<"clearing CGAL Polyhedron\n";
+	cout<<"clearing CGAL Polyhedron"<<endl;
 	Polyhedron::clear();
-	cout<<"clearing render info\n";
+	cout<<"clearing render info"<<endl;
 	this->vecRenderVerPos.clear();
 	this->vecRenderNorm.clear();
 	this->vecRenderFaceType.clear();
@@ -2295,7 +2295,7 @@ int GeometryAlgorithm::GetMeshPlaneIntersection(KW_Mesh mesh,Plane_3 plane,vecto
 				else if (CGAL::assign(ResultSeg,result)) 
 				{
 					// handle the segment intersection case.
-					cout<<"segment lie on plane\n";
+					cout<<"segment lie on plane"<<endl;
 				} 
 				else 
 				{
@@ -2999,7 +2999,7 @@ void GeometryAlgorithm::ComputeMeshMeanCurvature(KW_Mesh& mesh)
 
 		double dMeanCur=sqrt(SumVec.squared_length())/dMixedArea/4;
 
-		cout<<"%f\t"<<dMeanCur;
+		cout<<dMeanCur<<"\t";
 
 		i->SetMeanCurvature(dMeanCur);
 	}
@@ -3046,13 +3046,13 @@ void GeometryAlgorithm::NormalizeMeshMeanCurvature(KW_Mesh& mesh)
 	double dYScale=dYmax-dYmin;
 	double dZScale=dZmax-dZmin;
 	double dmeshScale = sqrt(dXScale*dXScale+dYScale*dYScale+dZScale*dZScale);
-	cout<<"dmeshScale %f\n"<<dmeshScale;
+	cout<<"dmeshScale "<<dmeshScale<<endl;
 
 	for (Vertex_iterator i=mesh.vertices_begin();i!=mesh.vertices_end();i++)
 	{
-		cout<<"dMeanCur %f\t"<<i->GetMeanCurvature();
+		cout<<"dMeanCur "<<i->GetMeanCurvature()<<"\t";
 		i->SetMeanCurvature(i->GetMeanCurvature()*dmeshScale);
-		cout<<"%f\n"<<i->GetMeanCurvature();
+		cout<<i->GetMeanCurvature()<<endl;
 	}
 }
 
@@ -3116,7 +3116,7 @@ void GeometryAlgorithm::ComputeMeshGaussianCurvature(KW_Mesh& mesh)
 			Havc++;
 		} while(Havc!=i->vertex_begin());
 
-		cout<<"%f\t"<<dSumRadius;
+		cout<<dSumRadius<<"\t";
 
 		double dGauCur=(2*CGAL_PI-dSumRadius)/dMixedArea;
 
