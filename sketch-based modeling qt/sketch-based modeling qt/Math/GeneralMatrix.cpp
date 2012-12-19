@@ -929,7 +929,7 @@ void GeneralMatrix::Print()
 	{
 		for (int j=0;j<nCol();j++)
 		{
-			cout<<"%f "<<GetElem(i,j);
+			cout<<GetElem(i,j)<<" ";
 		}
 		cout<<endl;
 	}
@@ -948,7 +948,7 @@ void GeneralMatrix::PrintNonZero()
 		{
 			if (GetElem(i,j)!=0)
 			{
-				cout<<"%f "<<GetElem(i,j);
+				cout<<GetElem(i,j)<<" ";
 			}
 		}
 		cout<<endl;

@@ -58,19 +58,21 @@ protected:
 	GLdouble projection[16]; 
 
 
-	//HCURSOR hCursor_Rotate;
-	//HCURSOR hCursor_Move;
-	//HCURSOR hCursor_Zoom;
-	//HCURSOR hCursor_PaintROI;
-	//HCURSOR hCursor_Smooth;
-	//HCURSOR hCursor_Pencil;
-
+	QCursor* qCursor_Rotate;
+	QCursor* qCursor_Move;
+	QCursor* qCursor_Zoom;
+	QCursor* qCursor_PaintROI;
+	QCursor* qCursor_Smooth;
+	QCursor* qCursor_Pencil;
+	
 
 
 	void initializeGL();
 	void paintGL();
 	void mousePressEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
+	void wheelEvent(QWheelEvent *event);
 	void timerEvent(QTimerEvent *event);
 
 	//total render function

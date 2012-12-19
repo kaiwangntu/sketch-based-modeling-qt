@@ -510,7 +510,7 @@ GLvoid OBJHandle::glmReadOBJ(char* filename,KW_Mesh& mesh,bool bScale,bool bCent
 
 GLvoid OBJHandle::glmReadOBJNew(char* filename,KW_Mesh& mesh,bool bScale,bool bCenter,bool bSetRenderInfo/* =true */)
 {
-	cout<<"Reading file...\n";
+	cout<<"Reading file..."<<endl;
 	KW_Polyhedron model;
 	FILE*   file;
 	/* open the file */
@@ -526,7 +526,7 @@ GLvoid OBJHandle::glmReadOBJNew(char* filename,KW_Mesh& mesh,bool bScale,bool bC
 	/* close the file */
 	fclose(file);
 
-	cout<<"Building mesh...\n";
+	cout<<"Building mesh..."<<endl;
 
 	ConvertToCGALPolyhedronNew(model,mesh);
 
@@ -536,11 +536,11 @@ GLvoid OBJHandle::glmReadOBJNew(char* filename,KW_Mesh& mesh,bool bScale,bool bC
 
 	if (bSetRenderInfo)
 	{
-		cout<<"Set render info...\n";
+		cout<<"Set render info..."<<endl;;
 		mesh.SetRenderInfo(true,true,true,true,true);
 	}
 
-	cout<<"mesh loaded...\n";
+	cout<<"mesh loaded..."<<endl;
 }
 
 /* glmWriteOBJ: Writes a model description in Wavefront .OBJ format to
