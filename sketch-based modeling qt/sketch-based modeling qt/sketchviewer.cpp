@@ -769,11 +769,11 @@ void SketchViewer::Render(GLenum mode)
 		//pDoc->GetMeshSmoothing().Render(pDoc->GetViewStyle(),
 		//	this->modelview,this->projection,this->viewport,mode);
 		break;
-	//case TEST_MODE:
-	//	this->RenderText.glPrint("Test Mode");
-	//	pDoc->GetTest().Render(pDoc->GetViewStyle(),
-	//		this->modelview,this->projection,this->viewport);
-	//	break;
+	case TEST_MODE:
+		this->renderText(5,25,QString("Test Mode"),QFont("arial",static_cast<int>(1*20)));
+		pDoc->GetTest().Render(pDoc->GetViewStyle(),
+			this->modelview,this->projection,this->viewport);
+		break;
 	default:
 		break;
 	}

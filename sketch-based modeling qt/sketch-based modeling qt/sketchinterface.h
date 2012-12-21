@@ -16,6 +16,8 @@ public:
 
 	SketchDoc* GetDoc(){return this->pDoc;}
 
+	SketchViewer* GetSketchViewer() {return this->ui.widget;}
+
 private:
 	Ui::SketchInterfaceClass ui;
 	
