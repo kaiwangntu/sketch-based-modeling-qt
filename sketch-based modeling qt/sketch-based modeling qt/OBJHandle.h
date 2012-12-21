@@ -4,6 +4,7 @@
 #include "CGALDef.h"
 #include <QMessageBox>
 
+
 #ifndef M_PI
 #define M_PI 3.14159265f
 #endif
@@ -259,7 +260,9 @@ public:
 	static GLvoid  glmReadOBJ(char* filename,KW_Mesh& mesh,bool bScale,bool bCenter);
 
 	//with new data structure
-	static GLvoid  glmReadOBJNew(char* filename,KW_Mesh& mesh,bool bScale,bool bCenter,bool bSetRenderInfo=true);
+	static GLvoid  glmReadOBJNew(const char* filename,KW_Mesh& mesh,bool bScale,bool bCenter,vector<double> vecDefaultColor,bool bSetRenderInfo=true);
+	//set color for each vertex
+	static void SetUniformMeshColor(KW_Mesh& mesh,std::vector<double> vecColor);
 
 	static GLvoid	glmWriteOBJ(GLMmodel* model, char* filename, GLuint mode);
 	static GLvoid	glmDraw(GLMmodel* model, GLuint mode);

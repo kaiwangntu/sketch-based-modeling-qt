@@ -1,36 +1,30 @@
 #pragma once
-#ifndef MATH_H
-#define MATH_H
+#ifndef MY_MATH_H
+#define MY_MATH_H
 
 
 #include "../PreDef.h"
 #include "GeneralMatrix.h"
 #include "KW-Taucs.h"
-//#include "KW-CLAPACK.h"
-//#include <cpplapack.h>
-//#include "KW-CPPLAPACK.h"
 
-extern"C"
-{
-#include <blaswrap.h>
-#include <f2c.h>
-#include <clapack.h>
-}
-
-
-using namespace std;
+//extern"C"
+//{
+//#include <blaswrap.h>
+//#include <f2c.h>
+//#include <clapack.h>
+//}
 //
-#ifdef DEBUG
-#pragma comment(lib,"libf2cd.lib")
-#pragma comment(lib,"BLASd.lib")
-#pragma comment(lib,"clapackd.lib")
-#pragma comment(lib,"tmglibd.lib")
-#else
-#pragma comment(lib,"libf2c.lib")
-#pragma comment(lib,"BLAS.lib")
-#pragma comment(lib,"clapack.lib")
-#pragma comment(lib,"tmglib.lib")
-#endif
+//#ifdef DEBUG
+//#pragma comment(lib,"libf2cd.lib")
+//#pragma comment(lib,"BLASd.lib")
+//#pragma comment(lib,"clapackd.lib")
+//#pragma comment(lib,"tmglibd.lib")
+//#else
+//#pragma comment(lib,"libf2c.lib")
+//#pragma comment(lib,"BLAS.lib")
+//#pragma comment(lib,"clapack.lib")
+//#pragma comment(lib,"tmglib.lib")
+//#endif
 
 
 //a encapsuled class for sparse matrix multiplication

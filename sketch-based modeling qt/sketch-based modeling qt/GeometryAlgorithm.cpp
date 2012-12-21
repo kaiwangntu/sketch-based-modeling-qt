@@ -1,5 +1,4 @@
 #include "GeometryAlgorithm.h"
-//#include "PreDef.h"
 #include "OBJHandle.h"
 
 void KW_Mesh::SetRenderInfo(bool bSetVerInfo,bool bSetNormInfo,bool bSetVerInd,bool bSetFaceInd,bool bSetColorInfo)

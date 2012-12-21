@@ -1,5 +1,5 @@
-#include "../PreDef.h"
 #include "Math.h"
+#include "KW-Lapack.h"
 
 /*! dssmatrix constructor without arguments */
 KW_SparseMatrix::KW_SparseMatrix()

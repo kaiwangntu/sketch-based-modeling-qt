@@ -7,9 +7,12 @@ SketchInterface::SketchInterface(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	ui.toolBox->setCurrentWidget(ui.Basics);
 	ui.statusBar->showMessage("status bar");
+
+	this->pDoc=new SketchDoc(this);
+
 }
 
 SketchInterface::~SketchInterface()
 {
-
+	delete this->pDoc;
 }
