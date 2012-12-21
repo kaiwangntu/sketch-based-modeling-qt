@@ -1,6 +1,7 @@
 #ifndef _SMATRIX_H
 #define _SMATRIX_H
 
+//using namespace std;
 
 #ifndef NULL
 #define NULL 0

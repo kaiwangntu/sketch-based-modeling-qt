@@ -1,5 +1,8 @@
 #include "sketchviewer.h"
 #include "ArcBall.h"
+#include "sketchinterface.h"
+#include "OBJHandle.h"
+
 #include <QMouseEvent>
 
 SketchViewer::SketchViewer(QWidget *parent)
@@ -31,6 +34,8 @@ SketchViewer::SketchViewer(QWidget *parent)
 	this->qCursor_Pencil= new QCursor(Pixpencil);
 
 	g_iLastPosX=0;g_iLastPosY=0;
+
+	this->pGrandParent=((SketchInterface*)(parent->parentWidget()));
 }
 
 SketchViewer::~SketchViewer()
@@ -51,19 +56,19 @@ void SketchViewer::initializeGL()
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	//CKWResearchWorkDoc* pDoc=GetDocument();
-	////	float pos[4] = { 0, 0, 1, 0};
-	//float* pos=pDoc->GetLightPos();
-	//glLightfv(GL_LIGHT0,GL_POSITION,pos);
-	////old settings
-	////	float diffuse[4] = { 1, 1, 1, 1};
-	//float diffuse[4] = {0.8f, 0.8f, 0.8f, 1.0f};
-	////	float ambient[4] = { 1, 1, 1, 0.5};
-	//float ambient[4] = { 0.1f, 0.1f, 0.1f, 1.0f};
-	////	float specular[4] = { 1.0f, 0.0f, 0.0f, 1.0f};
-	//glLightfv(GL_LIGHT0,GL_AMBIENT,ambient);
-	//glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse);
-	////	glLightfv(GL_LIGHT0,GL_SPECULAR,specular);
+	SketchDoc* pDoc=pGrandParent->GetDoc();
+	//	float pos[4] = { 0, 0, 1, 0};
+	float* pos=pDoc->GetLightPos();
+	glLightfv(GL_LIGHT0,GL_POSITION,pos);
+	//old settings
+	//	float diffuse[4] = { 1, 1, 1, 1};
+	float diffuse[4] = {0.8f, 0.8f, 0.8f, 1.0f};
+	//	float ambient[4] = { 1, 1, 1, 0.5};
+	float ambient[4] = { 0.1f, 0.1f, 0.1f, 1.0f};
+	//	float specular[4] = { 1.0f, 0.0f, 0.0f, 1.0f};
+	glLightfv(GL_LIGHT0,GL_AMBIENT,ambient);
+	glLightfv(GL_LIGHT0,GL_DIFFUSE,diffuse);
+	//	glLightfv(GL_LIGHT0,GL_SPECULAR,specular);
 }
 
 void SketchViewer::resizeGL(int width, int height)
@@ -109,7 +114,7 @@ void SketchViewer::Reset(bool bInitial)
 	=Transform.M[8]=Transform.M[9]=Transform.M[11]
 	=Transform.M[12]=Transform.M[13]=Transform.M[14]=0;
 	g_fZoom = 0.0f;g_fTransX = 0.0f;g_fTransY = 0.0f;
-	////stop plane rotation
+	//stop plane rotation
 	//KillTimer(TIMER_PLANE_ROTATE);
 	//KillTimer(TIMER_PLANE_WAIT_TO_ROTATE);
 }
@@ -120,7 +125,7 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 	//KillTimer(TIMER_PLANE_ROTATE);
 	//KillTimer(TIMER_PLANE_WAIT_TO_ROTATE);
 
-	//CKWResearchWorkDoc* pDoc=GetDocument();
+	SketchDoc* pDoc=this->pGrandParent->GetDoc();
 
 	QPoint point=event->pos();
 	Qt::MouseButton PressedButton=event->button();
@@ -130,77 +135,77 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 
 	if (PressedButton==Qt::LeftButton)
 	{
-		//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
-		//{
-		//	ProcessMouseHit(point,MOUSE_LEFT_BUTTON_HIT);
-		//	if ((pDoc->GetRBSelName()==NONE_SELECTED)||(pDoc->GetLBSelName()!=pDoc->GetRBSelName())
-		//		|| (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
-		//	{
+		if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+		{
+			ProcessMouseHit(point,MOUSE_LEFT_BUTTON_HIT);
+			if ((pDoc->GetRBSelName()==NONE_SELECTED)||(pDoc->GetLBSelName()!=pDoc->GetRBSelName())
+				|| (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
+			{
 				Point2fT    MousePt;// NEW: Current Mouse Point
 				LastRot=ThisRot;// Set Last Static Rotation To Last Dynamic One
 				MousePt.s.X=point.x();
 				MousePt.s.Y=point.y();
 				ArcBall.click(&MousePt);// Update Start Vector And Prepare For Dragging
 				this->setCursor(*qCursor_Rotate);
-		//	}
-		//	else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
-		//	{
-		//	}
-		//}
-		//else if (pDoc->GetManipMode()==SKETCH_MODE)
-		//{
-		//	if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED))
-		//	{
-		//		if (pDoc->GetMeshCreation().CheckPlaneState())
-		//		{
-		//			pDoc->GetMeshCreation().Input2DProfilePoint(point);
-		//		}
-		//	}
-		//	else if (pDoc->GetEditMode()==EDITING_MODE)
-		//	{
-		//		pDoc->GetMeshCreation().Input2DProfilePoint(point);
-		//	}
-		//	else if (pDoc->GetEditMode()==DEFORMATION_MODE)
-		//	{
-		//		if ((GetKeyState(0x52)<0))////R key pressed,curve to circle the ROI
-		//		{
-		//			if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
-		//			{
-		//				pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_CIRCLE_ROI);
-		//				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-		//			}
-		//		}
-		//		else if (GetKeyState(0x50)<0)//P key pressed,points to paint the ROI
-		//		{
-		//			SetCursor(hCursor_PaintROI);
-		//			if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
-		//			{
-		//				pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_PAINT_ROI);
-		//				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-		//				pDoc->GetMeshDeformation().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
-		//			}
-		//		}
-		//		else 
-		//		{
-		//			pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-		//		}
-		//	}
-		//	else if (pDoc->GetEditMode()==CUTTING_MODE)
-		//	{
-		//		pDoc->GetMeshCutting().InputCurvePoint2D(point);
-		//	}
-		//	else if (pDoc->GetEditMode()==EXTRUSION_MODE)
-		//	{
-		//		pDoc->GetMeshExtrusion().InputCurvePoint2D(point);
-		//	}
-		//	else if (pDoc->GetEditMode()==SMOOTHING_MODE)
-		//	{
-		//		SetCursor(hCursor_Smooth);
-		//		pDoc->GetMeshSmoothing().Init(pDoc);
-		//		pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
-		//		pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
-		//	}
-		//}
+			}
+			else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
+			{
+			}
+		}
+		else if (pDoc->GetManipMode()==SKETCH_MODE)
+		{
+			//if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED))
+			//{
+			//	if (pDoc->GetMeshCreation().CheckPlaneState())
+			//	{
+			//		pDoc->GetMeshCreation().Input2DProfilePoint(point);
+			//	}
+			//}
+			//else if (pDoc->GetEditMode()==EDITING_MODE)
+			//{
+			//	pDoc->GetMeshCreation().Input2DProfilePoint(point);
+			//}
+			//else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+			//{
+			//	if ((GetKeyState(0x52)<0))////R key pressed,curve to circle the ROI
+			//	{
+			//		if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+			//		{
+			//			pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_CIRCLE_ROI);
+			//			pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+			//		}
+			//	}
+			//	else if (GetKeyState(0x50)<0)//P key pressed,points to paint the ROI
+			//	{
+			//		SetCursor(hCursor_PaintROI);
+			//		if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+			//		{
+			//			pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_PAINT_ROI);
+			//			pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+			//			pDoc->GetMeshDeformation().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+			//		}
+			//	}
+			//	else 
+			//	{
+			//		pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+			//	}
+			//}
+			//else if (pDoc->GetEditMode()==CUTTING_MODE)
+			//{
+			//	pDoc->GetMeshCutting().InputCurvePoint2D(point);
+			//}
+			//else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+			//{
+			//	pDoc->GetMeshExtrusion().InputCurvePoint2D(point);
+			//}
+			//else if (pDoc->GetEditMode()==SMOOTHING_MODE)
+			//{
+			//	SetCursor(hCursor_Smooth);
+			//	pDoc->GetMeshSmoothing().Init(pDoc);
+			//	pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
+			//	pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+			//}
+		}
 	}
 	else if (PressedButton==Qt::RightButton)
 	{
@@ -209,7 +214,7 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 		//	ProcessMouseHit(point,MOUSE_RIGHT_BUTTON_HIT);
 		//	if (pDoc->GetRBSelName()==NONE_SELECTED)
 		//	{
-				this->setCursor(*qCursor_Move);
+		//		this->setCursor(*qCursor_Move);
 		//		if (pDoc->GetEditMode()==CREATION_MODE)
 		//		{
 		//			pDoc->GetMeshCreation().SetDrawingPlane();
@@ -250,7 +255,7 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 
 void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
 {
-	//CKWResearchWorkDoc* pDoc=GetDocument();
+	SketchDoc* pDoc=this->pGrandParent->GetDoc();
 
 	Qt::MouseButton PressedButton=event->button();
 	if (PressedButton==Qt::LeftButton)
@@ -311,17 +316,18 @@ void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
 void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 {
 	// TODO: Add your message handler code here and/or call default
-	//CKWResearchWorkDoc* pDoc=GetDocument();
+	SketchDoc* pDoc=this->pGrandParent->GetDoc();
+
 
 	QPoint point=event->pos();
 	int g_iStepX = point.x()-g_iLastPosX;
 	int g_iStepY = point.y()-g_iLastPosY;
 
-	//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
-	//{
-	//	if (((pDoc->GetRBSelName()==NONE_SELECTED))||(pDoc->GetLBSelName()!=pDoc->GetRBSelName())
-	//		|| (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
-	//	{
+	if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+	{
+		if (((pDoc->GetRBSelName()==NONE_SELECTED))||(pDoc->GetLBSelName()!=pDoc->GetRBSelName())
+			|| (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
+		{
 			if (event->buttons()&Qt::LeftButton)
 			{
 				this->setCursor(*qCursor_Rotate);
@@ -342,7 +348,7 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 				g_fTransX  += 0.01f*g_iStepX;
 				g_fTransY  -= 0.01f*g_iStepY;
 			}
-	//	}
+		}
 	//	else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
 	//	{
 	//		if ((pDoc->GetEditMode()==CREATION_MODE)&&(nFlags & MK_LBUTTON))//translate the reference plane in creation
@@ -414,7 +420,7 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 	//		pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
 	//		//}
 	//	}
-	//}
+	}
 
 	g_iLastPosX  = point.x();
 	g_iLastPosY  = point.y();
@@ -427,12 +433,13 @@ void SketchViewer::wheelEvent(QWheelEvent *event)
 	// TODO: Add your message handler code here and/or call default
 	//KillTimer(TIMER_PLANE_ROTATE);
 	//KillTimer(TIMER_PLANE_WAIT_TO_ROTATE);
-	//CKWResearchWorkDoc* pDoc=GetDocument();
 
-	//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
-	//{
-	//	if (pDoc->GetRBSelName()==NONE_SELECTED || (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
-	//	{
+	SketchDoc* pDoc=this->pGrandParent->GetDoc();
+
+	if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+	{
+		if (pDoc->GetRBSelName()==NONE_SELECTED || (pDoc->GetRBSelName()==MODEL_NAME && pDoc->GetEditMode()==CREATION_MODE))
+		{
 			// middle mouse button
 			this->setCursor(*qCursor_Zoom);
 			if(event->delta()>0)
@@ -443,7 +450,7 @@ void SketchViewer::wheelEvent(QWheelEvent *event)
 			{
 				g_fZoom-=0.15;
 			}
-	//	}
+		}
 	//	else if (pDoc->GetEditMode()==CREATION_MODE)
 	//	{
 	//		pDoc->GetMeshCreation().AdjustPlaneBoundary(zDelta);
@@ -461,6 +468,7 @@ void SketchViewer::wheelEvent(QWheelEvent *event)
 	//{
 	//	//do nothing
 	//}
+	}
 
 	updateGL();
 }
@@ -475,7 +483,7 @@ void SketchViewer::keyPressEvent(QKeyEvent *event)
 
 	//KillTimer(TIMER_PLANE_ROTATE);
 	//KillTimer(TIMER_PLANE_WAIT_TO_ROTATE);
-	//CKWResearchWorkDoc* pDoc=GetDocument();
+	SketchDoc* pDoc=this->pGrandParent->GetDoc();
 	if(event->key()==Qt::Key_Enter)
 	{
 	//	if (pDoc->GetEditMode()==CREATION_MODE)
@@ -526,45 +534,46 @@ void SketchViewer::keyPressEvent(QKeyEvent *event)
 
 void SketchViewer::ProcessMouseHit(QPoint point,int iButton)
 {
-	//GLuint selectBuf[512];
-	//GLint iHits;
+	GLuint selectBuf[512];
+	GLint iHits;
 
-	//glSelectBuffer(512, selectBuf);
-	//glRenderMode (GL_SELECT);
-	//glInitNames();
+	glSelectBuffer(512, selectBuf);
+	glRenderMode (GL_SELECT);
+	glInitNames();
 
 	//RECT rect;
 	//GetWindowRect(&rect);
 	//int cx=rect.right-rect.left;
+	int cx=this->rect().right()-this->rect().left();
 	//int cy=rect.bottom-rect.top;
-	//double aspect;
-	//aspect = (cy == 0) ? (double)cx : (double)cx/(double)cy;
+	int cy=this->rect().bottom()-this->rect().top();
+	double aspect;
+	aspect = (cy == 0) ? (double)cx : (double)cx/(double)cy;
+	glMatrixMode (GL_PROJECTION);
+	glPushMatrix ();
+	glLoadIdentity ();
+	//get a 5x5 pixel region around the mouse position
+	gluPickMatrix ((GLdouble) point.x(), (GLdouble) (this->viewport[3] - point.y()), 
+		5.0, 5.0, this->viewport);
+	gluPerspective(45,aspect,0.01,5000.0f);//same as in OnSize function
+	glMatrixMode(GL_MODELVIEW);
 
-	//glMatrixMode (GL_PROJECTION);
-	//glPushMatrix ();
-	//glLoadIdentity ();
-	////  在鼠标位置生成5X5像素区域
-	//gluPickMatrix ((GLdouble) point.x, (GLdouble) (this->viewport[3] - point.y), 
-	//	5.0, 5.0, this->viewport);
-	//gluPerspective(45,aspect,0.01,5000.0f);//same as in OnSize function
-	//glMatrixMode(GL_MODELVIEW);
+	Render(GL_SELECT);
 
-	//Render(GL_SELECT);
+	glMatrixMode (GL_PROJECTION);
+	glPopMatrix ();
 
-	//glMatrixMode (GL_PROJECTION);
-	//glPopMatrix ();
+	iHits=glRenderMode(GL_RENDER);
 
-	//iHits=glRenderMode(GL_RENDER);
-
-	//CKWResearchWorkDoc* pDoc=GetDocument();
-	//if (iButton==MOUSE_LEFT_BUTTON_HIT)
-	//{
-	//	pDoc->SetLBSelName(GetSelectName(iHits,selectBuf));
-	//}
-	//else if (iButton==MOUSE_RIGHT_BUTTON_HIT)
-	//{
-	//	pDoc->SetRBSelName(GetSelectName(iHits,selectBuf));
-	//}
+	SketchDoc* pDoc=this->pGrandParent->GetDoc();
+	if (iButton==MOUSE_LEFT_BUTTON_HIT)
+	{
+		pDoc->SetLBSelName(GetSelectName(iHits,selectBuf));
+	}
+	else if (iButton==MOUSE_RIGHT_BUTTON_HIT)
+	{
+		pDoc->SetRBSelName(GetSelectName(iHits,selectBuf));
+	}
 }
 
 int SketchViewer::GetSelectName(GLint hits, GLuint buffer[])
@@ -626,80 +635,30 @@ int SketchViewer::GetSelectName(GLint hits, GLuint buffer[])
 
 void SketchViewer::saveSceneImage(const char* filename)
 {
-	//wglMakeCurrent(g_pBLDC->m_hDC,m_hGLContext);
-
-	//GLint viewport[4];
-	//glGetIntegerv( GL_VIEWPORT, viewport );
-	//int width  = viewport[2];
-	//int height = viewport[3];
-	//width -= width%4;
-	//int x=0;
-	//int y=0;
-
-	//GLubyte * bmpBuffer = NULL;
-	//bmpBuffer = new GLubyte[width*height*3*sizeof(GLubyte)];
-	//if (!bmpBuffer)
-	//	return;// FALSE;
-	//glReadPixels((GLint)x, (GLint)y, (GLint)width, (GLint)height,
-	//	GL_BGR_EXT, GL_UNSIGNED_BYTE, bmpBuffer);
-	//wglMakeCurrent(g_pBLDC->m_hDC,NULL);
-
-
-	//FILE *filePtr;
-	//fopen_s(&filePtr, filename, "wb");
-	//if (!filePtr)
-	//	return;// FALSE;
-
-	//BITMAPFILEHEADER bitmapFileHeader;
-	//BITMAPINFOHEADER bitmapInfoHeader;
-
-	//bitmapFileHeader.bfType = 0x4D42; //"BM"
-	//bitmapFileHeader.bfSize = width*height*3;
-	//bitmapFileHeader.bfReserved1 = 0;
-	//bitmapFileHeader.bfReserved2 = 0;
-	//bitmapFileHeader.bfOffBits = sizeof(BITMAPFILEHEADER) + sizeof(BITMAPINFOHEADER);
-
-	//bitmapInfoHeader.biSize = sizeof(BITMAPINFOHEADER);
-	//bitmapInfoHeader.biWidth = width;
-	//bitmapInfoHeader.biHeight = height;
-	//bitmapInfoHeader.biPlanes = 1;
-	//bitmapInfoHeader.biBitCount = 24;
-	//bitmapInfoHeader.biCompression = BI_RGB;
-	//bitmapInfoHeader.biSizeImage = 0;
-	//bitmapInfoHeader.biXPelsPerMeter = 0;
-	//bitmapInfoHeader.biYPelsPerMeter = 0;
-	//bitmapInfoHeader.biClrUsed = 0;
-	//bitmapInfoHeader.biClrImportant = 0;
-
-	//fwrite(&bitmapFileHeader, sizeof(bitmapFileHeader), 1, filePtr);
-	//fwrite(&bitmapInfoHeader, sizeof(bitmapInfoHeader), 1, filePtr);
-	//fwrite(bmpBuffer, width*height*3, 1, filePtr);
-	//fclose(filePtr);
-	//delete [] bmpBuffer;
-
-	//return;// TRUE; 
+	QPixmap pixmap = QPixmap::grabWidget(this);
+	pixmap.save("widget.bmp","bmp");
 }
 
 void SketchViewer::Render(GLenum mode)
 {
 
-	//CKWResearchWorkDoc* pDoc=GetDocument();
+	SketchDoc* pDoc=this->pGrandParent->GetDoc();
 
-	//if (pDoc->GetManipMode()==SKETCH_MODE)
-	//{
-	//	SetCursor(hCursor_Pencil);
-	//}
+	if (pDoc->GetManipMode()==SKETCH_MODE)
+	{
+		this->setCursor(*qCursor_Pencil);
+	}
 
 	// Do not call CView::OnPaint() for painting messages
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 	glMatrixMode(GL_MODELVIEW);
 
-	//float* pos=pDoc->GetLightPos();
-	//glLightfv(GL_LIGHT0,GL_POSITION,pos);
+	float* pos=pDoc->GetLightPos();
+	glLightfv(GL_LIGHT0,GL_POSITION,pos);
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHTING);
-	glDepthFunc(GL_LESS);		//设置深度测试函数
+	glDepthFunc(GL_LESS);		
 	glEnable(GL_DEPTH_TEST);
 
 	glEnable(GL_BLEND);
@@ -710,7 +669,7 @@ void SketchViewer::Render(GLenum mode)
 	gluLookAt(0,1,5,0,0,0,0,1,0);
 	glPushMatrix();
 	glTranslatef(g_fTransX,g_fTransY,g_fZoom);
-	glMultMatrixf(Transform.M);//旋转
+	glMultMatrixf(Transform.M);
 
 
 	if (mode==GL_RENDER)
@@ -720,18 +679,18 @@ void SketchViewer::Render(GLenum mode)
 		glGetDoublev(GL_PROJECTION_MATRIX, projection); 
 	}
 
-	//if (pDoc->GetViewStyle())
-	//{
-	//	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);	//设置多边形显示模式为双面填充显示
-	//} 
-	//else
-	//{
-	//	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);	//设置多边形显示模式为双面线显示
-	//}
+	if (pDoc->GetViewStyle())
+	{
+		glPolygonMode(GL_FRONT_AND_BACK,GL_FILL);
+	} 
+	else
+	{
+		glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
+	}
 
 	glDisable(GL_LIGHTING);
-	//if ((pDoc->IsAxisOn())&&(mode==GL_RENDER))
-	//{
+	if ((pDoc->IsAxisOn())&&(mode==GL_RENDER))
+	{
 		glLineWidth(2.0);
 		glBegin(GL_LINES);
 		glColor3f(1,0,0);
@@ -745,100 +704,95 @@ void SketchViewer::Render(GLenum mode)
 		glVertex3f(0,0,1);
 		glEnd();
 		glLineWidth(1.0);
-	//} 
+	} 
 	glEnable(GL_LIGHTING);
 
 
-	////if (pDoc->IsPrimalMeshShown())
-	//if (pDoc->GetRenderPreMesh()==MESH_EXIST_VIEW && !pDoc->GetMesh().empty())
-	//{
-	//	//the mesh is selected
-	//	if (pDoc->GetRBSelName()==MODEL_NAME)
-	//	{
-	//		OBJHandle::DrawCGALPolyhedron(&(pDoc->GetMesh()),pDoc->GetViewStyle(),COLOR_SELECTED_OPAQUE,
-	//			pDoc->GetDefaultColor(),mode);
-	//	}
-	//	else
-	//	{
-	//		OBJHandle::DrawCGALPolyhedron(&(pDoc->GetMesh()),pDoc->GetViewStyle(),pDoc->GetColorMode(),
-	//			pDoc->GetDefaultColor(),mode);
-	//	}
-	//}
+	//if (pDoc->IsPrimalMeshShown())
+	if (pDoc->GetRenderPreMesh()==MESH_EXIST_VIEW && !pDoc->GetMesh().empty())
+	{
+		//the mesh is selected
+		if (pDoc->GetRBSelName()==MODEL_NAME)
+		{
+			OBJHandle::DrawCGALPolyhedron(&(pDoc->GetMesh()),pDoc->GetViewStyle(),COLOR_SELECTED_OPAQUE,
+				pDoc->GetDefaultColor(),mode);
+		}
+		else
+		{
+			OBJHandle::DrawCGALPolyhedron(&(pDoc->GetMesh()),pDoc->GetViewStyle(),pDoc->GetColorMode(),
+				pDoc->GetDefaultColor(),mode);
+		}
+	}
 
-	glColor3f(0,1,1);
-	this->renderText(10,10,QString("Test Mode0 Test Mode1 Test Mode2 Test Mode3"),QFont("Arial",static_cast<int>(1*20)));
 
-	//if (mode==GL_RENDER)
-	//{
-	//	this->RenderText.SetTextPos(this->viewport);
-	//}
-	//switch(pDoc->GetEditMode())
-	//{
-	//case CREATION_MODE:
-	//	if (mode==GL_RENDER)
-	//	{
-	//		this->RenderText.glPrint("Creation Mode");
-	//	}
+	glColor3f(1,0,0);
+	switch(pDoc->GetEditMode())
+	{
+	case CREATION_MODE:
+		if (mode==GL_RENDER)
+		{
+			this->renderText(5,25,QString("Creation Mode"),QFont("arial",static_cast<int>(1*20)));
+		}
 
-	//	pDoc->GetMeshCreation().Render(pDoc->GetViewStyle(),mode,this->modelview,this->projection,this->viewport);
+		//pDoc->GetMeshCreation().Render(pDoc->GetViewStyle(),mode,this->modelview,this->projection,this->viewport);
 
+		break;
+	case EDITING_MODE:
+		if (mode==GL_RENDER)
+		{
+			this->renderText(5,25,QString("Editing Mode"),QFont("arial",static_cast<int>(1*20)));
+		}
+
+		//pDoc->GetMeshEditing().Render(mode);
+
+		break;
+	case DEFORMATION_MODE:
+		if (mode==GL_RENDER)
+		{
+			this->renderText(5,25,QString("Deformation Mode"),QFont("arial",static_cast<int>(1*20)));
+		}
+		//pDoc->GetMeshDeformation().Render(pDoc->GetViewStyle(),mode,pDoc->IsDualMeshShown());
+		break;
+	case EXTRUSION_MODE:
+		if (mode==GL_RENDER)
+		{
+			this->renderText(5,25,QString("Extrusion Mode"),QFont("arial",static_cast<int>(1*20)));
+		}
+		//pDoc->GetMeshExtrusion().Render(pDoc->GetViewStyle(),mode);
+		break;
+	case CUTTING_MODE:
+		this->renderText(5,25,QString("Cutting Mode"),QFont("arial",static_cast<int>(1*20)));
+		//pDoc->GetMeshCutting().Render(pDoc->GetViewStyle(),mode);
+		break;
+	case SMOOTHING_MODE:
+		this->renderText(5,25,QString("Smoothing Mode"),QFont("arial",static_cast<int>(1*20)));
+		//pDoc->GetMeshSmoothing().Render(pDoc->GetViewStyle(),
+		//	this->modelview,this->projection,this->viewport,mode);
+		break;
+	//case TEST_MODE:
+	//	this->RenderText.glPrint("Test Mode");
+	//	pDoc->GetTest().Render(pDoc->GetViewStyle(),
+	//		this->modelview,this->projection,this->viewport);
 	//	break;
-	//case EDITING_MODE:
-	//	if (mode==GL_RENDER)
-	//	{
-	//		this->RenderText.glPrint("Editing Mode");
-	//	}
-
-	//	pDoc->GetMeshEditing().Render(mode);
-
-	//	break;
-	//case DEFORMATION_MODE:
-	//	if (mode==GL_RENDER)
-	//	{
-	//		this->RenderText.glPrint("Deformation Mode");
-	//	}
-	//	pDoc->GetMeshDeformation().Render(pDoc->GetViewStyle(),mode,pDoc->IsDualMeshShown());
-	//	break;
-	//case EXTRUSION_MODE:
-	//	if (mode==GL_RENDER)
-	//	{
-	//		this->RenderText.glPrint("Extrusion Mode");
-	//	}
-	//	pDoc->GetMeshExtrusion().Render(pDoc->GetViewStyle(),mode);
-	//	break;
-	//case CUTTING_MODE:
-	//	this->RenderText.glPrint("Cutting Mode");
-	//	pDoc->GetMeshCutting().Render(pDoc->GetViewStyle(),mode);
-	//	break;
-	//case SMOOTHING_MODE:
-	//	this->RenderText.glPrint("Smoothing Mode");
-	//	pDoc->GetMeshSmoothing().Render(pDoc->GetViewStyle(),
-	//		this->modelview,this->projection,this->viewport,mode);
-	//	break;
-	//	//case TEST_MODE:
-	//	//	this->RenderText.glPrint("Test Mode");
-	//	//	pDoc->GetTest().Render(pDoc->GetViewStyle(),
-	//	//		this->modelview,this->projection,this->viewport);
-	//	//	break;
-	//default:
-	//	break;
-	//}
+	default:
+		break;
+	}
 
 
-	//if (pDoc->GetRenderPreMesh()==MESH_PREVIEW && !pDoc->GetMesh().empty())
-	//{
-	//	//the mesh is selected
-	//	if (pDoc->GetRBSelName()==MODEL_NAME)
-	//	{
-	//		OBJHandle::DrawCGALPolyhedron(&(pDoc->GetMesh()),pDoc->GetViewStyle(),COLOR_SELECTED_TRANSPARENT,
-	//			pDoc->GetDefaultColor(),mode);
-	//	}
-	//	else
-	//	{
-	//		OBJHandle::DrawCGALPolyhedron(&(pDoc->GetMesh()),pDoc->GetViewStyle(),COLOR_TRANSPARENT,//pDoc->GetColorMode(),
-	//			pDoc->GetDefaultColor(),mode);
-	//	}
-	//}
+	if (pDoc->GetRenderPreMesh()==MESH_PREVIEW && !pDoc->GetMesh().empty())
+	{
+		//the mesh is selected
+		if (pDoc->GetRBSelName()==MODEL_NAME)
+		{
+			OBJHandle::DrawCGALPolyhedron(&(pDoc->GetMesh()),pDoc->GetViewStyle(),COLOR_SELECTED_TRANSPARENT,
+				pDoc->GetDefaultColor(),mode);
+		}
+		else
+		{
+			OBJHandle::DrawCGALPolyhedron(&(pDoc->GetMesh()),pDoc->GetViewStyle(),COLOR_TRANSPARENT,//pDoc->GetColorMode(),
+				pDoc->GetDefaultColor(),mode);
+		}
+	}
 
 
 	glPopMatrix();

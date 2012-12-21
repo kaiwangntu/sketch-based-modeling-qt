@@ -168,6 +168,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CurveDeform.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\GeometryAlgorithm.cpp"
 				>
 			</File>
@@ -177,6 +181,10 @@
 			</File>
 			<File
 				RelativePath=".\OBJHandle.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SketchDoc.cpp"
 				>
 			</File>
 			<File
@@ -222,6 +230,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\CurveDeform.h"
+				>
+			</File>
+			<File
 				RelativePath=".\GeometryAlgorithm.h"
 				>
 			</File>
@@ -231,6 +243,10 @@
 			</File>
 			<File
 				RelativePath=".\PreDef.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SketchDoc.h"
 				>
 			</File>
 			<File
@@ -302,6 +318,10 @@
 				</File>
 				<File
 					RelativePath=".\Math\glu_tesselator.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Math\KW-Lapack.h"
 					>
 				</File>
 				<File

@@ -6,6 +6,8 @@
 #include "ArcBall.h"
 //#include "GeometryAlgorithm.h"
 
+class SketchInterface;
+
 class SketchViewer : public QGLWidget
 {
 	Q_OBJECT
@@ -44,6 +46,10 @@ public:
 
 
 protected:
+
+	//sketch interface
+	SketchInterface* pGrandParent;
+
 	//Arcball
 	ArcBallT ArcBall;
 	Matrix4fT Transform;
