@@ -3,6 +3,9 @@
 //#include "PreDef.h"
 //#include "CGALDef.h"
 #include "GeometryAlgorithm.h"
+#include "MeshCreation/MeshCreation.h"
+#include "MeshEditing.h"
+#include "Test.h"
 #include <QString>
 
 
@@ -13,6 +16,9 @@ class SketchDoc
 public:
 	SketchDoc(SketchInterface* pParentIn);
 	~SketchDoc(void);
+
+	//sketch interface
+	SketchInterface* GetParent(){return this->pParent;}
 
 	void NewDocument();
 	void OpenDocument(QString qDocName);
@@ -51,14 +57,14 @@ public:
 	void SetLightPos(float* DataIn){memcpy(this->LightPos,DataIn,sizeof(float)*4);}
 
 	KW_Mesh& GetMesh() {return this->Mesh;}
-	//CMeshEditing& GetMeshEditing() {return this->MeshEditing;}
+	CMeshEditing& GetMeshEditing() {return this->MeshEditing;}
 	//CMeshDeformation& GetMeshDeformation() {return this->MeshDeformation;}
 	//CMeshExtrusion& GetMeshExtrusion() {return this->MeshExtrusion;}
 	vector<vector<Point_3> >& GettestvecvecNewEdgeVertexPos();
 	//CMeshCutting& GetMeshCutting() {return this->MeshCutting;}
 	//CMeshSmoothing& GetMeshSmoothing() {return this->MeshSmoothing;}
 	//CMeshCreation& GetMeshCreation() {return this->MeshCreation;}
-	//CTest& GetTest() {return this->Test;}
+	CTest& GetTest() {return this->Test;}
 
 	vector<Point_3>& GetTestPointsRef() {return this->testpoints;};
 	void SetTestPoints(vector<Point_3> DataIn) {this->testpoints=DataIn;};
@@ -121,7 +127,7 @@ protected:
 
 	//total editing class
 	//used to judge which editing operation to perform according to type of input sketch
-	//CMeshEditing MeshEditing;
+	CMeshEditing MeshEditing;
 	//deformation
 	//CMeshDeformation MeshDeformation;
 	//extrusion
@@ -132,7 +138,7 @@ protected:
 	//smoothing
 	//CMeshSmoothing MeshSmoothing;
 	//test
-	//CTest Test;
+	CTest Test;
 	vector<Point_3> testCentroidPoint;
 	vector<Point_3> testmovedCentroidPoint;
 	vector<Facet_handle> testfhRefineTri;

@@ -38,13 +38,13 @@ void SketchDoc::NewDocument()
 	//}
 
 	this->Mesh.clear();
-	//this->MeshEditing.Init(this);
+	this->MeshEditing.Init(this);
 	//this->MeshDeformation.Init(this);
 	//this->MeshExtrusion.Init(this);
 	//this->MeshCutting.Init(this);
 	//this->MeshSmoothing.Init(this);
 	//this->MeshCreation.Init(this);
-	//this->Test.Init(this);
+	this->Test.Init(this);
 	OnModeCreation();
 
 
@@ -117,13 +117,13 @@ void SketchDoc::OpenDocument(QString qDocName)
 	}
 
 	// TODO: add loading code here
-	//this->MeshEditing.Init(this);
+	this->MeshEditing.Init(this);
 	//this->MeshDeformation.Init(this);
 	//this->MeshExtrusion.Init(this);
 	//this->MeshCutting.Init(this);
 	//this->MeshSmoothing.Init(this);
 	//this->MeshCreation.Init(this);
-	//this->Test.Init(this);
+	this->Test.Init(this);
 	//OnModeDeformation();
 
 	this->iManipMode=VIEW_SELECTION_MODE;

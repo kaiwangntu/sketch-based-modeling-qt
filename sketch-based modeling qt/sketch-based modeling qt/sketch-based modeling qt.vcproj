@@ -180,6 +180,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MeshEditing.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\OBJHandle.cpp"
 				>
 			</File>
@@ -199,6 +203,10 @@
 				RelativePath=".\sketchviewer.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Test.cpp"
+				>
+			</File>
 			<Filter
 				Name="Math"
 				>
@@ -212,6 +220,18 @@
 				</File>
 				<File
 					RelativePath=".\Math\Math.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeshCreation"
+				>
+				<File
+					RelativePath=".\MeshCreation\CrossSectionProc.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshCreation\MeshCreation.cpp"
 					>
 				</File>
 			</Filter>
@@ -239,6 +259,10 @@
 			</File>
 			<File
 				RelativePath=".\GeometryAlgorithm.h"
+				>
+			</File>
+			<File
+				RelativePath=".\MeshEditing.h"
 				>
 			</File>
 			<File
@@ -313,6 +337,10 @@
 				RelativePath=".\SymbolsDef.h"
 				>
 			</File>
+			<File
+				RelativePath=".\Test.h"
+				>
+			</File>
 			<Filter
 				Name="Math"
 				>
@@ -342,6 +370,26 @@
 				</File>
 				<File
 					RelativePath=".\Math\Tree.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeshCreation"
+				>
+				<File
+					RelativePath=".\MeshCreation\config.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshCreation\CrossSectionProc.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshCreation\MeshCreation.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshCreation\MeshCreation_Struct_Def.h"
 					>
 				</File>
 			</Filter>
