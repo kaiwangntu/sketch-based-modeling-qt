@@ -184,6 +184,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\PaintingOnMesh.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SketchDoc.cpp"
 				>
 			</File>
@@ -239,6 +243,10 @@
 			</File>
 			<File
 				RelativePath=".\OBJHandle.h"
+				>
+			</File>
+			<File
+				RelativePath=".\PaintingOnMesh.h"
 				>
 			</File>
 			<File

@@ -1,6 +1,8 @@
 #include "SketchDoc.h"
 #include "sketchinterface.h"
 #include "OBJHandle.h"
+#include <QMessageBox>
+
 
 SketchDoc::SketchDoc(SketchInterface* pParentIn)
 {

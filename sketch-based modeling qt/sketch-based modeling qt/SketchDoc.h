@@ -4,7 +4,6 @@
 //#include "CGALDef.h"
 #include "GeometryAlgorithm.h"
 #include <QString>
-#include <QMessageBox>
 
 
 class SketchInterface;
