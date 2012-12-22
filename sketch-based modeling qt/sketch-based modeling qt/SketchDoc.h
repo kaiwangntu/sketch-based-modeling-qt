@@ -63,7 +63,7 @@ public:
 	vector<vector<Point_3> >& GettestvecvecNewEdgeVertexPos();
 	//CMeshCutting& GetMeshCutting() {return this->MeshCutting;}
 	//CMeshSmoothing& GetMeshSmoothing() {return this->MeshSmoothing;}
-	//CMeshCreation& GetMeshCreation() {return this->MeshCreation;}
+	CMeshCreation& GetMeshCreation() {return this->MeshCreation;}
 	CTest& GetTest() {return this->Test;}
 
 	vector<Point_3>& GetTestPointsRef() {return this->testpoints;};
@@ -143,7 +143,7 @@ protected:
 	vector<Point_3> testmovedCentroidPoint;
 	vector<Facet_handle> testfhRefineTri;
 	//creation 
-	//CMeshCreation MeshCreation;
+	CMeshCreation MeshCreation;
 
 	vector<Point_3> testpoints;
 

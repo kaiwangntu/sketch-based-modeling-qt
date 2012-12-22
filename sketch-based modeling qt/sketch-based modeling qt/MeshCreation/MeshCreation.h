@@ -3,7 +3,7 @@
 #include "MeshCreation_Struct_Def.h"//temparory
 #include "../ArcBall.h"
 #include <qpoint>
-//#include "Ctr2SufManager/Ctr2SufManager.h"
+#include "Ctr2SufManager/Ctr2SufManager.h"
 //#include "KW_CS2Surf/KW_CS2Surf.h"
 //#include "../PaintingOnMesh.h"
 //#include "CrossSectionProc.h"
@@ -38,7 +38,7 @@ public:
 	void SetSurfReconstAlgorithm(int iParaIn) {this->iSurfReconstAlgorithm=iParaIn;}
 
 	//KW_CS2Surf* GetKW_CS2Surf() {return this->kwcs2surf;}
-	//Ctr2SufManager* GetCS2Surf() {return this->manager;}
+	Ctr2SufManager* GetCS2Surf() {return this->manager;}
 	
 	void AdjustPlaneBoundary(int iIncrease);
 
@@ -89,7 +89,7 @@ private:
 	//surface reconstruction algorithm
 	int iSurfReconstAlgorithm;
 
-	//Ctr2SufManager* manager;
+	Ctr2SufManager* manager;
 	//KW_CS2Surf* kwcs2surf;
 
 
@@ -162,37 +162,37 @@ private:
 	void RenderTestPoint();
 };
 
-///*Convert from Mesh to CGAL*/
-//// A modifier creating a triangle with the incremental builder.
-//template <class HDS>
-//class Convert_Mesh_To_CGALPoly : public CGAL::Modifier_base<HDS> {
-//public:
-//	Convert_Mesh_To_CGALPoly(const Mesh* modelIn) {model=modelIn;}
-//	void operator()( HDS& hds) {
-//		// Postcondition: `hds' is a valid polyhedral surface.
-//		CGAL::Polyhedron_incremental_builder_3<HDS> B( hds, true);
-//		B.begin_surface( model->sufvernum,model->suffacenum);
-//		for (int i=0;i<model->sufvernum;i++)
-//		{
-//			B.add_vertex(Point_3(model->sufver[3*i+0],
-//				model->sufver[3*i+1],
-//				model->sufver[3*i+2]));
-//		}
-//
-//		for (int i=0;i<model->suffacenum;i++)
-//		{
-//			B.begin_facet();
-//			for (int j=0;j<3;j++)
-//			{
-////				B.add_vertex_to_facet(model->sufface[3*i+j]);
-//				int test=model->sufface[3*i+j];
-//				B.add_vertex_to_facet(test);
-//			}
-//			B.end_facet();
-//		}
-//		B.end_surface();
-//	}
-//private:
-//	const Mesh* model;
-//};
-///*Convert from Mesh to CGAL*/
+/*Convert from Mesh to CGAL*/
+// A modifier creating a triangle with the incremental builder.
+template <class HDS>
+class Convert_Mesh_To_CGALPoly : public CGAL::Modifier_base<HDS> {
+public:
+	Convert_Mesh_To_CGALPoly(const Mesh* modelIn) {model=modelIn;}
+	void operator()( HDS& hds) {
+		// Postcondition: `hds' is a valid polyhedral surface.
+		CGAL::Polyhedron_incremental_builder_3<HDS> B( hds, true);
+		B.begin_surface( model->sufvernum,model->suffacenum);
+		for (int i=0;i<model->sufvernum;i++)
+		{
+			B.add_vertex(Point_3(model->sufver[3*i+0],
+				model->sufver[3*i+1],
+				model->sufver[3*i+2]));
+		}
+
+		for (int i=0;i<model->suffacenum;i++)
+		{
+			B.begin_facet();
+			for (int j=0;j<3;j++)
+			{
+//				B.add_vertex_to_facet(model->sufface[3*i+j]);
+				int test=model->sufface[3*i+j];
+				B.add_vertex_to_facet(test);
+			}
+			B.end_facet();
+		}
+		B.end_surface();
+	}
+private:
+	const Mesh* model;
+};
+/*Convert from Mesh to CGAL*/
