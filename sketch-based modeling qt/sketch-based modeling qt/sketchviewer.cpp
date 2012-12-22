@@ -154,17 +154,17 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 		}
 		else if (pDoc->GetManipMode()==SKETCH_MODE)
 		{
-			//if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED))
-			//{
-			//	if (pDoc->GetMeshCreation().CheckPlaneState())
-			//	{
-			//		pDoc->GetMeshCreation().Input2DProfilePoint(point);
-			//	}
-			//}
-			//else if (pDoc->GetEditMode()==EDITING_MODE)
-			//{
-			//	pDoc->GetMeshCreation().Input2DProfilePoint(point);
-			//}
+			if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED))
+			{
+				if (pDoc->GetMeshCreation().CheckPlaneState())
+				{
+					pDoc->GetMeshCreation().Input2DProfilePoint(point);
+				}
+			}
+			else if (pDoc->GetEditMode()==EDITING_MODE)
+			{
+				pDoc->GetMeshCreation().Input2DProfilePoint(point);
+			}
 			//else if (pDoc->GetEditMode()==DEFORMATION_MODE)
 			//{
 			//	if ((GetKeyState(0x52)<0))////R key pressed,curve to circle the ROI
@@ -209,16 +209,16 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 	}
 	else if (PressedButton==Qt::RightButton)
 	{
-		//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
-		//{
-		//	ProcessMouseHit(point,MOUSE_RIGHT_BUTTON_HIT);
-		//	if (pDoc->GetRBSelName()==NONE_SELECTED)
-		//	{
-		//		this->setCursor(*qCursor_Move);
-		//		if (pDoc->GetEditMode()==CREATION_MODE)
-		//		{
-		//			pDoc->GetMeshCreation().SetDrawingPlane();
-		//		}
+		if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+		{
+			ProcessMouseHit(point,MOUSE_RIGHT_BUTTON_HIT);
+			if (pDoc->GetRBSelName()==NONE_SELECTED)
+			{
+				this->setCursor(*qCursor_Move);
+				if (pDoc->GetEditMode()==CREATION_MODE)
+				{
+					pDoc->GetMeshCreation().SetDrawingPlane();
+				}
 		//		else if (pDoc->GetEditMode()==DEFORMATION_MODE)
 		//		{
 		//			pDoc->GetMeshDeformation().SetSelectedItem();
@@ -227,13 +227,13 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 		//		{
 		//			pDoc->GetMeshExtrusion().SetSelectedItem();
 		//		}
-		//	}
-		//	else
-		//	{
-		//		if (pDoc->GetEditMode()==CREATION_MODE)
-		//		{
-		//			pDoc->GetMeshCreation().SetDrawingPlane();
-		//		}
+			}
+			else
+			{
+				if (pDoc->GetEditMode()==CREATION_MODE)
+				{
+					pDoc->GetMeshCreation().SetDrawingPlane();
+				}
 		//		else if (pDoc->GetEditMode()==DEFORMATION_MODE)
 		//		{
 		//			pDoc->GetMeshDeformation().SetSelectedItem();
@@ -242,12 +242,12 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 		//		{
 		//			pDoc->GetMeshExtrusion().SetSelectedItem();
 		//		}
-		//	}
-		//}
-		//else if (pDoc->GetManipMode()==SKETCH_MODE)
-		//{
-		//	//do nothing
-		//}
+			}
+		}
+		else if (pDoc->GetManipMode()==SKETCH_MODE)
+		{
+			//do nothing
+		}
 	}
 
 	updateGL();
@@ -260,30 +260,30 @@ void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
 	Qt::MouseButton PressedButton=event->button();
 	if (PressedButton==Qt::LeftButton)
 	{
-		//if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
-		//{
-		//	if (pDoc->GetRBSelName()==NONE_SELECTED)
-		//	{
-		//		//do nothing
-		//	}
-		//	else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
-		//	{
-		//		if (pDoc->GetEditMode()==CREATION_MODE)//stop translation of the reference plane in creation
-		//		{
-		//			pDoc->GetMeshCreation().StopTranslateDrawingPlane();
-		//		}
-		//	}
-		//}
-		//else if (pDoc->GetManipMode()==SKETCH_MODE)
-		//{
-		//	if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED))
-		//	{
-		//		pDoc->GetMeshCreation().Convert2DProfileTo3D();
-		//	}
-		//	else if (pDoc->GetEditMode()==EDITING_MODE)
-		//	{
-		//		pDoc->GetMeshEditing().Convert2DProfileTo3D();
-		//	}
+		if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+		{
+			if (pDoc->GetRBSelName()==NONE_SELECTED)
+			{
+				//do nothing
+			}
+			else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
+			{
+				if (pDoc->GetEditMode()==CREATION_MODE)//stop translation of the reference plane in creation
+				{
+					pDoc->GetMeshCreation().StopTranslateDrawingPlane();
+				}
+			}
+		}
+		else if (pDoc->GetManipMode()==SKETCH_MODE)
+		{
+			if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED))
+			{
+				pDoc->GetMeshCreation().Convert2DProfileTo3D();
+			}
+			else if (pDoc->GetEditMode()==EDITING_MODE)
+			{
+				pDoc->GetMeshEditing().Convert2DProfileTo3D();
+			}
 		//	else if (pDoc->GetEditMode()==DEFORMATION_MODE)
 		//	{
 		//		pDoc->GetMeshDeformation().Conver2DCurveTo3D(pDoc->GetMesh());
@@ -300,7 +300,7 @@ void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
 		//	{
 		//		pDoc->GetMeshSmoothing().ClearROI();
 		//	}
-		//}
+		}
 	}
 	else if (PressedButton==Qt::RightButton)
 	{
@@ -349,13 +349,13 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 				g_fTransY  -= 0.01f*g_iStepY;
 			}
 		}
-	//	else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
-	//	{
-	//		if ((pDoc->GetEditMode()==CREATION_MODE)&&(nFlags & MK_LBUTTON))//translate the reference plane in creation
-	//		{
-	//			SetCursor(hCursor_Move);
-	//			pDoc->GetMeshCreation().TranslateDrawingPlane(0.01f*g_iStepX);
-	//		}
+		else if (pDoc->GetLBSelName()==pDoc->GetRBSelName())
+		{
+			if ((pDoc->GetEditMode()==CREATION_MODE)&&((event->buttons()&Qt::LeftButton)))//translate the reference plane in creation
+			{
+				this->setCursor(*qCursor_Move);
+				pDoc->GetMeshCreation().TranslateDrawingPlane(0.01f*g_iStepX);
+			}
 	//		else if (pDoc->GetEditMode()==DEFORMATION_MODE && (nFlags & MK_LBUTTON))
 	//		{
 	//			SetCursor(hCursor_Move);
@@ -366,19 +366,19 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 	//			SetCursor(hCursor_Rotate);
 	//			pDoc->GetMeshExtrusion().ManipSelItem(g_iStepX,g_iStepY);
 	//		}
-	//	}
-	//}
-	//else if (pDoc->GetManipMode()==SKETCH_MODE)
-	//{
-	//	if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED)
-	//		&&((nFlags & MK_LBUTTON)))
-	//	{
-	//		pDoc->GetMeshCreation().Input2DProfilePoint(point);
-	//	}
-	//	else if (pDoc->GetEditMode()==EDITING_MODE && (nFlags & MK_LBUTTON))
-	//	{
-	//		pDoc->GetMeshEditing().Input2DProfilePoint(point);
-	//	}
+		}
+	}
+	else if (pDoc->GetManipMode()==SKETCH_MODE)
+	{
+		if ((pDoc->GetEditMode()==CREATION_MODE)&&(pDoc->GetMeshCreation().GetDrawingPlane()!=NONE_SELECTED)
+			&&(event->buttons()&Qt::LeftButton))
+		{
+			pDoc->GetMeshCreation().Input2DProfilePoint(point);
+		}
+		else if (pDoc->GetEditMode()==EDITING_MODE && (event->buttons()&Qt::LeftButton))
+		{
+			pDoc->GetMeshEditing().Input2DProfilePoint(point);
+		}
 	//	else if (pDoc->GetEditMode()==DEFORMATION_MODE && (nFlags & MK_LBUTTON))
 	//	{
 	//		if ((GetKeyState(0x52)<0))//R key pressed,curve to circle the ROI
@@ -418,7 +418,7 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 	//		SetCursor(hCursor_Smooth);
 	//		pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
 	//		pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
-	//		//}
+			//}
 	//	}
 	}
 
@@ -451,10 +451,10 @@ void SketchViewer::wheelEvent(QWheelEvent *event)
 				g_fZoom-=0.15;
 			}
 		}
-	//	else if (pDoc->GetEditMode()==CREATION_MODE)
-	//	{
-	//		pDoc->GetMeshCreation().AdjustPlaneBoundary(zDelta);
-	//	}
+		else if (pDoc->GetEditMode()==CREATION_MODE)
+		{
+			pDoc->GetMeshCreation().AdjustPlaneBoundary(event->delta());
+		}
 	//	else if (pDoc->GetEditMode()==DEFORMATION_MODE)
 	//	{
 	//		pDoc->GetMeshDeformation().AdjustPlaneBoundary(zDelta);
@@ -464,10 +464,10 @@ void SketchViewer::wheelEvent(QWheelEvent *event)
 	//		pDoc->GetMeshExtrusion().AdjustPlaneBoundary(zDelta);
 	//	}
 	//}
-	//else if (pDoc->GetManipMode()==SKETCH_MODE)
-	//{
-	//	//do nothing
-	//}
+	else if (pDoc->GetManipMode()==SKETCH_MODE)
+	{
+		//do nothing
+	}
 	}
 
 	updateGL();
@@ -486,48 +486,48 @@ void SketchViewer::keyPressEvent(QKeyEvent *event)
 	SketchDoc* pDoc=this->pGrandParent->GetDoc();
 	if(event->key()==Qt::Key_Enter)
 	{
-	//	if (pDoc->GetEditMode()==CREATION_MODE)
-	//	{
-	//		if (pDoc->GetMeshCreation().FitLastPlaneCurves())
-	//		{
-	//			pDoc->GetMeshCreation().GenerateMesh(pDoc->GetMesh(),pDoc->GetDefaultColor());
-	//		}
-	//	}
+		if (pDoc->GetEditMode()==CREATION_MODE)
+		{
+			if (pDoc->GetMeshCreation().FitLastPlaneCurves())
+			{
+				pDoc->GetMeshCreation().GenerateMesh(pDoc->GetMesh(),pDoc->GetDefaultColor());
+			}
+		}
 	}
 	else if (event->key()==Qt::Key_Escape)
 	{
-	//	if (pDoc->GetEditMode()==CREATION_MODE)
-	//	{
-	//		pDoc->GetMeshCreation().CancelLastInput();
-	//	}
+		if (pDoc->GetEditMode()==CREATION_MODE)
+		{
+			pDoc->GetMeshCreation().CancelLastInput();
+		}
 	}
 	else if (event->key()==Qt::Key_Delete)
 	{
-	//	if (pDoc->GetEditMode()==CREATION_MODE)
-	//	{
-	//		pDoc->GetMeshCreation().DeleteSpecifiedCS();
-	//	}
+		if (pDoc->GetEditMode()==CREATION_MODE)
+		{
+			pDoc->GetMeshCreation().DeleteSpecifiedCS();
+		}
 	}
 	else if (event->key()==Qt::Key_F1)
 	{
-	//	if (pDoc->GetEditMode()==CREATION_MODE)
-	//	{
-	//		pDoc->GetMeshCreation().CopyCNFromLastParaPlane(0);
-	//	}
+		if (pDoc->GetEditMode()==CREATION_MODE)
+		{
+			pDoc->GetMeshCreation().CopyCNFromLastParaPlane(0);
+		}
 	}
 	else if (event->key()==Qt::Key_F2)
 	{
-	//	if (pDoc->GetEditMode()==CREATION_MODE)
-	//	{
-	//		pDoc->GetMeshCreation().CopyCNFromLastParaPlane(1);
-	//	}
+		if (pDoc->GetEditMode()==CREATION_MODE)
+		{
+			pDoc->GetMeshCreation().CopyCNFromLastParaPlane(1);
+		}
 	}
 	else if (event->key()==Qt::Key_F3)
 	{
-	//	if (pDoc->GetEditMode()==CREATION_MODE)
-	//	{
-	//		pDoc->GetMeshCreation().CopyCNFromLastParaPlane(2);
-	//	}
+		if (pDoc->GetEditMode()==CREATION_MODE)
+		{
+			pDoc->GetMeshCreation().CopyCNFromLastParaPlane(2);
+		}
 	}
 	updateGL();
 }
@@ -734,7 +734,7 @@ void SketchViewer::Render(GLenum mode)
 			this->renderText(5,25,QString("Creation Mode"),QFont("arial",static_cast<int>(1*20)));
 		}
 
-		//pDoc->GetMeshCreation().Render(pDoc->GetViewStyle(),mode,this->modelview,this->projection,this->viewport);
+		pDoc->GetMeshCreation().Render(pDoc->GetViewStyle(),mode,this->modelview,this->projection,this->viewport);
 
 		break;
 	case EDITING_MODE:
@@ -743,7 +743,7 @@ void SketchViewer::Render(GLenum mode)
 			this->renderText(5,25,QString("Editing Mode"),QFont("arial",static_cast<int>(1*20)));
 		}
 
-		//pDoc->GetMeshEditing().Render(mode);
+		pDoc->GetMeshEditing().Render(mode);
 
 		break;
 	case DEFORMATION_MODE:

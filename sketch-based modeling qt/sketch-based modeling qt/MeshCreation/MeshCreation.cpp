@@ -3,21 +3,21 @@
 #include "../sketchviewer.h"
 #include "../sketchinterface.h"
 #include "../PaintingOnMesh.h"
+#include "../OBJHandle.h"
 #include <QMessageBox>
-//#include "../OBJHandle.h"
 //#include "../ControlPanel/ControlPanel.h"
 //#include "ImplicitSurface/ImplicitMesher.h"
 
 CMeshCreation::CMeshCreation(void)
 {
-//	this->manager=NULL;
+	this->manager=NULL;
 //	this->kwcs2surf=NULL;
 }
 
 CMeshCreation::~CMeshCreation(void)
 {
-//	this->manager=NULL;
-//	delete this->manager;
+	this->manager=NULL;
+	delete this->manager;
 //	this->kwcs2surf=NULL;
 //	delete this->kwcs2surf;
 }
@@ -60,12 +60,12 @@ void CMeshCreation::Init(SketchDoc* pDataIn)
 
 	this->iSurfReconstAlgorithm=TaoJuSurfReconstAlgo;//ProgSurfReconstAlgo
 
-	//if (manager!=NULL)
-	//{
-	//	manager=NULL;
-	//	delete manager;
-	//}
-	//manager= new Ctr2SufManager();
+	if (manager!=NULL)
+	{
+		manager=NULL;
+		delete manager;
+	}
+	manager= new Ctr2SufManager();
 
 	//if (this->kwcs2surf!=NULL)
 	//{
@@ -795,109 +795,105 @@ bool CMeshCreation::FitLastPlaneCurves()
 
 void CMeshCreation::AdjustContourView()
 {
-//	if (this->vecCurveNetwork.empty())
-//	{
-//		return;
-//	}
-//	this->MeshBoundingProfile3D.clear();
-//	//////special process
-//	vector<CurveNetwork> vecTempCurveNetwork=this->vecCurveNetwork;
-//	//get bounding box,multiply DIM,change the plane para
-//	float fPreSetBBox[ 6 ];
-//	bool bboxset=false;
-//	for (unsigned int iPlane=0;iPlane<vecTempCurveNetwork.size();iPlane++)
-//	{
-//		for (unsigned int iCurve=0;iCurve<vecTempCurveNetwork.at(iPlane).Profile3D.size();iCurve++)
-//		{
-//			for (unsigned int iPoint=0;iPoint<vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).size();iPoint++)
-//			{
-//				if (bboxset==false)
-//				{
-//					fPreSetBBox[0]=fPreSetBBox[3]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x();
-//					fPreSetBBox[1]=fPreSetBBox[4]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y();
-//					fPreSetBBox[2]=fPreSetBBox[5]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z();
-//					bboxset=true;
-//				}
-//				else
-//				{
-//					if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x()<fPreSetBBox[0])
-//					{
-//						fPreSetBBox[0]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x();
-//					}
-//					else if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x()>fPreSetBBox[3])
-//					{
-//						fPreSetBBox[3]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x();
-//					}
-//					if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y()<fPreSetBBox[1])
-//					{
-//						fPreSetBBox[1]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y();
-//					}
-//					else if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y()>fPreSetBBox[4])
-//					{
-//						fPreSetBBox[4]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y();
-//					}
-//					if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z()<fPreSetBBox[2])
-//					{
-//						fPreSetBBox[2]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z();
-//					}
-//					else if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z()>fPreSetBBox[5])
-//					{
-//						fPreSetBBox[5]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z();
-//					}
-//				}
-//				double dNewX=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x()/DIM;
-//				double dNewY=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y()/DIM;
-//				double dNewZ=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z()/DIM;
-//				vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint)=Point_3(dNewX,dNewY,dNewZ);
-//			}
-//		}
-//		//will be wrong if the plane is not of the three basic types
-//		double dNewPlaneD=vecTempCurveNetwork.at(iPlane).plane.d()/DIM;
-//		vecTempCurveNetwork.at(iPlane).plane=Plane_3(vecTempCurveNetwork.at(iPlane).plane.a(),
-//			vecTempCurveNetwork.at(iPlane).plane.b(),
-//			vecTempCurveNetwork.at(iPlane).plane.c(),dNewPlaneD);
-//	}
-//
-//	//get center
-//	//this->OldCenter=Point_3((bbox[0]+bbox[3])/2.0,(bbox[1]+bbox[4])/2.0,(bbox[2]+bbox[5])/2.0);
-//	this->OldCenter=Point_3(0,0,0);
-//
-////	manager->readContourFromVec(this->vecCurveNetwork,this->MeshBoundingProfile3D);
-//
-//	//kw test
-//	fPreSetBBox[0]=fPreSetBBox[1]=fPreSetBBox[2]=-CREATION_PLANE_BOUND_SIZE/DIM;
-//	fPreSetBBox[3]=fPreSetBBox[4]=fPreSetBBox[5]=CREATION_PLANE_BOUND_SIZE/DIM;
-//
-//	if (this->iSurfReconstAlgorithm==TaoJuSurfReconstAlgo)
-//	{
-//		this->manager->readContourFromVec(vecTempCurveNetwork,fPreSetBBox,this->MeshBoundingProfile3D);
-//		this->manager->SetOldCenter(this->OldCenter);
-//	}
-//	else if (this->iSurfReconstAlgorithm=ProgSurfReconstAlgo)
-//	{
-//		this->kwcs2surf->readContourFromVec(vecTempCurveNetwork,fPreSetBBox,this->MeshBoundingProfile3D);
-//		this->kwcs2surf->SetOldCenter(this->OldCenter);
-//	}
-//
-////	this->vecCurveNetwork.clear();
-////	this->vecCurvePlaneIntersectPoint.clear();
-////	this->vecCurvePlaneIntersectType.clear();
+	if (this->vecCurveNetwork.empty())
+	{
+		return;
+	}
+	this->MeshBoundingProfile3D.clear();
+	//////special process
+	vector<CurveNetwork> vecTempCurveNetwork=this->vecCurveNetwork;
+	//get bounding box,multiply DIM,change the plane para
+	float fPreSetBBox[ 6 ];
+	bool bboxset=false;
+	for (unsigned int iPlane=0;iPlane<vecTempCurveNetwork.size();iPlane++)
+	{
+		for (unsigned int iCurve=0;iCurve<vecTempCurveNetwork.at(iPlane).Profile3D.size();iCurve++)
+		{
+			for (unsigned int iPoint=0;iPoint<vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).size();iPoint++)
+			{
+				if (bboxset==false)
+				{
+					fPreSetBBox[0]=fPreSetBBox[3]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x();
+					fPreSetBBox[1]=fPreSetBBox[4]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y();
+					fPreSetBBox[2]=fPreSetBBox[5]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z();
+					bboxset=true;
+				}
+				else
+				{
+					if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x()<fPreSetBBox[0])
+					{
+						fPreSetBBox[0]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x();
+					}
+					else if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x()>fPreSetBBox[3])
+					{
+						fPreSetBBox[3]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x();
+					}
+					if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y()<fPreSetBBox[1])
+					{
+						fPreSetBBox[1]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y();
+					}
+					else if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y()>fPreSetBBox[4])
+					{
+						fPreSetBBox[4]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y();
+					}
+					if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z()<fPreSetBBox[2])
+					{
+						fPreSetBBox[2]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z();
+					}
+					else if (vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z()>fPreSetBBox[5])
+					{
+						fPreSetBBox[5]=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z();
+					}
+				}
+				double dNewX=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).x()/DIM;
+				double dNewY=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).y()/DIM;
+				double dNewZ=vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint).z()/DIM;
+				vecTempCurveNetwork.at(iPlane).Profile3D.at(iCurve).at(iPoint)=Point_3(dNewX,dNewY,dNewZ);
+			}
+		}
+		//will be wrong if the plane is not of the three basic types
+		double dNewPlaneD=vecTempCurveNetwork.at(iPlane).plane.d()/DIM;
+		vecTempCurveNetwork.at(iPlane).plane=Plane_3(vecTempCurveNetwork.at(iPlane).plane.a(),
+			vecTempCurveNetwork.at(iPlane).plane.b(),
+			vecTempCurveNetwork.at(iPlane).plane.c(),dNewPlaneD);
+	}
+
+	//get center
+	//this->OldCenter=Point_3((bbox[0]+bbox[3])/2.0,(bbox[1]+bbox[4])/2.0,(bbox[2]+bbox[5])/2.0);
+	this->OldCenter=Point_3(0,0,0);
+
+
+	//kw test
+	fPreSetBBox[0]=fPreSetBBox[1]=fPreSetBBox[2]=-CREATION_PLANE_BOUND_SIZE/DIM;
+	fPreSetBBox[3]=fPreSetBBox[4]=fPreSetBBox[5]=CREATION_PLANE_BOUND_SIZE/DIM;
+
+	if (this->iSurfReconstAlgorithm==TaoJuSurfReconstAlgo)
+	{
+		this->manager->readContourFromVec(vecTempCurveNetwork,fPreSetBBox,this->MeshBoundingProfile3D);
+		this->manager->SetOldCenter(this->OldCenter);
+	}
+	//else if (this->iSurfReconstAlgorithm=ProgSurfReconstAlgo)
+	//{
+	//	this->kwcs2surf->readContourFromVec(vecTempCurveNetwork,fPreSetBBox,this->MeshBoundingProfile3D);
+	//	this->kwcs2surf->SetOldCenter(this->OldCenter);
+	//}
+
 }
 
 void CMeshCreation::GenerateMesh(KW_Mesh& Mesh,vector<double> vecMeshColor)
 {
-	//Mesh.clear();
+	Mesh.clear();
 
 
-	//if (this->iSurfReconstAlgorithm==TaoJuSurfReconstAlgo)
-	//{
-	//	if (manager!=NULL)
-	//	{
-	//		manager=NULL;
-	//		delete manager; 
-	//	}
-	//	manager= new Ctr2SufManager();
-	//}
+	if (this->iSurfReconstAlgorithm==TaoJuSurfReconstAlgo)
+	{
+		if (manager!=NULL)
+		{
+			manager=NULL;
+			delete manager; 
+		}
+		manager= new Ctr2SufManager();
+	}
 	//else if (this->iSurfReconstAlgorithm=ProgSurfReconstAlgo)
 	//{
 	//	if (this->kwcs2surf!=NULL)
@@ -908,18 +904,18 @@ void CMeshCreation::GenerateMesh(KW_Mesh& Mesh,vector<double> vecMeshColor)
 	//	this->kwcs2surf= new KW_CS2Surf();
 	//}
 
-	//AdjustContourView();
+	AdjustContourView();
 
-	//this->MeshBoundingProfile3D.clear();
+	this->MeshBoundingProfile3D.clear();
 
-	//if (this->iSurfReconstAlgorithm==TaoJuSurfReconstAlgo)
-	//{
-	//	this->manager->ctr2sufProc(this->MeshBoundingProfile3D,this->vecTestPoint);
-	//	this->manager->mesh->splitsmooth2(0, 1.414, 10, 50, 0.5);
-	//	this->manager->CheckCCW();
-	//	Convert_Mesh_To_CGALPoly<HalfedgeDS> triangle(this->manager->mesh);
-	//	Mesh.delegate(triangle);
-	//}
+	if (this->iSurfReconstAlgorithm==TaoJuSurfReconstAlgo)
+	{
+		this->manager->ctr2sufProc(this->MeshBoundingProfile3D,this->vecTestPoint);
+		this->manager->mesh->splitsmooth2(0, 1.414, 10, 50, 0.5);
+		this->manager->CheckCCW();
+		Convert_Mesh_To_CGALPoly<HalfedgeDS> triangle(this->manager->mesh);
+		Mesh.delegate(triangle);
+	}
 	//else if (this->iSurfReconstAlgorithm=ProgSurfReconstAlgo)
 	//{
 	//	if (!this->kwcs2surf->ctr2sufProc(this->MeshBoundingProfile3D,this->vecTestPoint))
@@ -937,27 +933,25 @@ void CMeshCreation::GenerateMesh(KW_Mesh& Mesh,vector<double> vecMeshColor)
 	//}
 
 
-	//this->MeshBoundingProfile3D.clear();
+	this->MeshBoundingProfile3D.clear();
 
-	////move back acoording to the old center
-	//for (Vertex_iterator i=Mesh.vertices_begin();i!=Mesh.vertices_end();i++)
-	//{
-	//	double dNewX=i->point().x()+this->OldCenter.x();
-	//	double dNewY=i->point().y()+this->OldCenter.y();
-	//	double dNewZ=i->point().z()+this->OldCenter.z();
-	//	i->point()=Point_3(dNewX,dNewY,dNewZ);
-	//}
+	//move back acoording to the old center
+	for (Vertex_iterator i=Mesh.vertices_begin();i!=Mesh.vertices_end();i++)
+	{
+		double dNewX=i->point().x()+this->OldCenter.x();
+		double dNewY=i->point().y()+this->OldCenter.y();
+		double dNewZ=i->point().z()+this->OldCenter.z();
+		i->point()=Point_3(dNewX,dNewY,dNewZ);
+	}
 
-	//OBJHandle::UnitizeCGALPolyhedron(Mesh,false,false);
-	//GeometryAlgorithm::SetUniformMeshColor(Mesh,vecMeshColor);
+	OBJHandle::UnitizeCGALPolyhedron(Mesh,false,false);
+	GeometryAlgorithm::SetUniformMeshColor(Mesh,vecMeshColor);
 
-	//Mesh.SetRenderInfo(true,true,true,true,true);
+	Mesh.SetRenderInfo(true,true,true,true,true);
 }
 
 void CMeshCreation::ReadContourFromFile(char* pFileName)
 {	
-	//manager= new Ctr2SufManager();
-	//manager->readContourFromFile(pFileName,this->MeshBoundingProfile3D);
 	if (!CCrossSectionProc::ImportCrossSections(pFileName,this->vecCurveNetwork))
 	{
 		return;
@@ -972,37 +966,37 @@ void CMeshCreation::WriteContourToFile(char* pFileName)
 
 void CMeshCreation::Render(bool bSmoothView,GLenum mode,GLdouble* modelview,GLdouble* projection,GLint* viewport)
 {
-	//if (mode==GL_RENDER)
-	//{
-	//	RenderRefPlanes(bSmoothView,mode);
-	//	Render2DProfile(modelview,projection,viewport);
-	//	RenderProfile3D(mode);
-	//	RenderMeshBoundingProfile3D(mode);
-	//	RenderComputedCS(mode);
-	//	//RenderCNIntersectPoint();
-	//	RenderCurvePlaneIntersectPoints();
-	//	RenderTestPoint();
-	//	if (this->manager!=NULL)
-	//	{
-	//		this->manager->Render();
-	//	}
-	//	if (this->kwcs2surf!=NULL)
-	//	{
-	//		this->kwcs2surf->Render();
-	//	}
-	//}
-	//else
-	//{
-	//	RenderRefPlanes(bSmoothView,mode);
-	//	RenderProfile3D(mode);
-	//	RenderMeshBoundingProfile3D(mode);
-	//	RenderComputedCS(mode);
-	//}
+	if (mode==GL_RENDER)
+	{
+		RenderRefPlanes(bSmoothView,mode);
+		Render2DProfile(modelview,projection,viewport);
+		RenderProfile3D(mode);
+		RenderMeshBoundingProfile3D(mode);
+		RenderComputedCS(mode);
+		//RenderCNIntersectPoint();
+		RenderCurvePlaneIntersectPoints();
+		RenderTestPoint();
+		if (this->manager!=NULL)
+		{
+			this->manager->Render();
+		}
+		//if (this->kwcs2surf!=NULL)
+		//{
+		//	this->kwcs2surf->Render();
+		//}
+	}
+	else
+	{
+		RenderRefPlanes(bSmoothView,mode);
+		RenderProfile3D(mode);
+		RenderMeshBoundingProfile3D(mode);
+		RenderComputedCS(mode);
+	}
 
-	////if (manager->mesh!=NULL)
-	////{
-	////	testrender();
-	////}
+	//if (manager->mesh!=NULL)
+	//{
+	//	testrender();
+	//}
 }
 
 void CMeshCreation::RenderRefPlanes(bool bSmoothView,GLenum mode)
@@ -1551,58 +1545,58 @@ void CMeshCreation::RenderTestPoint()
 
 void CMeshCreation::testrender()
 {
-	//glBegin(GL_TRIANGLES);
-	//for( int i = 0; i < manager->mesh->suffacenum; i ++)
-	//{
-	//	//if (i==155)
-	//	//{
-	//	//	break;
-	//	//}
-	//	glColor3f(1.0,0.0,0.0);
-	//	glNormal3fv( &manager->mesh->suffacenorm[ i*3 ]);
-	//	for( int k = 0; k < 3; k ++)
-	//	{
-	//		//			glVertex3fv( &manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3]);
-	//		int itest=manager->mesh->sufface[ i * 3 + k];
-	//		glVertex3f( manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+0],
-	//			manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+1],
-	//			manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+2]);
-	//	}
-	//}
-	//glEnd();
+	glBegin(GL_TRIANGLES);
+	for( int i = 0; i < manager->mesh->suffacenum; i ++)
+	{
+		//if (i==155)
+		//{
+		//	break;
+		//}
+		glColor3f(1.0,0.0,0.0);
+		glNormal3fv( &manager->mesh->suffacenorm[ i*3 ]);
+		for( int k = 0; k < 3; k ++)
+		{
+			//			glVertex3fv( &manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3]);
+			int itest=manager->mesh->sufface[ i * 3 + k];
+			glVertex3f( manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+0],
+				manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+1],
+				manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+2]);
+		}
+	}
+	glEnd();
 
-	//glPointSize(10.0);
-	//for( int i = 0; i < manager->mesh->suffacenum; i ++)
-	//{
-	//	if (i!=113)
-	//	{
-	//		continue;
-	//	}
-	//	for( int k = 0; k < 3; k ++)
-	//	{
-	//		//			glVertex3fv( &manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3]);
-	//		switch(k)
-	//		{
-	//		case 0:
-	//			glColor3f(1.0,0.0,0.0);
-	//			break;
-	//		case 1:
-	//			glColor3f(0.0,1.0,0.0);
-	//			break;
-	//		case 2:
-	//			glColor3f(0.0,0.0,1.0);
-	//			break;
-	//		default:
-	//			break;
-	//		}
-	//		glBegin(GL_POINTS);
-	//		glVertex3f( manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+0],
-	//			manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+1],
-	//			manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+2]);
-	//		glEnd();
-	//	}
-	//}
-	//glPointSize(1.0);
+	glPointSize(10.0);
+	for( int i = 0; i < manager->mesh->suffacenum; i ++)
+	{
+		if (i!=113)
+		{
+			continue;
+		}
+		for( int k = 0; k < 3; k ++)
+		{
+			//			glVertex3fv( &manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3]);
+			switch(k)
+			{
+			case 0:
+				glColor3f(1.0,0.0,0.0);
+				break;
+			case 1:
+				glColor3f(0.0,1.0,0.0);
+				break;
+			case 2:
+				glColor3f(0.0,0.0,1.0);
+				break;
+			default:
+				break;
+			}
+			glBegin(GL_POINTS);
+			glVertex3f( manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+0],
+				manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+1],
+				manager->mesh->sufver[manager->mesh->sufface[ i * 3 + k] * 3+2]);
+			glEnd();
+		}
+	}
+	glPointSize(1.0);
 
 }
 

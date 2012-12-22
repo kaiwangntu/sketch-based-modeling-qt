@@ -43,7 +43,7 @@ void SketchDoc::NewDocument()
 	//this->MeshExtrusion.Init(this);
 	//this->MeshCutting.Init(this);
 	//this->MeshSmoothing.Init(this);
-	//this->MeshCreation.Init(this);
+	this->MeshCreation.Init(this);
 	this->Test.Init(this);
 	OnModeCreation();
 
@@ -122,7 +122,7 @@ void SketchDoc::OpenDocument(QString qDocName)
 	//this->MeshExtrusion.Init(this);
 	//this->MeshCutting.Init(this);
 	//this->MeshSmoothing.Init(this);
-	//this->MeshCreation.Init(this);
+	this->MeshCreation.Init(this);
 	this->Test.Init(this);
 	//OnModeDeformation();
 
