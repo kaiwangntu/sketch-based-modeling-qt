@@ -42,8 +42,12 @@ public:
 	Matrix3fT& GetViewRotMat(){return this->ThisRot;}
 	Matrix4fT& GetViewTransMat(){return this->Transform;}
 
-
-
+	void SetViewSelectCursor() 
+	{	Qt::CursorShape Arrow = Qt::ArrowCursor;
+		QCursor NormCur(Arrow);
+		this->setCursor(NormCur);
+	}
+	void SetSketchCursor() {this->setCursor(*qCursor_Pencil);}
 
 protected:
 

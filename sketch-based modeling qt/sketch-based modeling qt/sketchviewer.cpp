@@ -307,9 +307,11 @@ void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
 		//do nothing
 	}
 
-	Qt::CursorShape Arrow = Qt::ArrowCursor;
-	QCursor NormCur(Arrow);
-	this->setCursor(NormCur);
+	if (pDoc->GetManipMode()==VIEW_SELECTION_MODE)
+	{
+		SetViewSelectCursor();
+	}
+
 	updateGL();
 }
 
@@ -644,10 +646,11 @@ void SketchViewer::Render(GLenum mode)
 
 	SketchDoc* pDoc=this->pGrandParent->GetDoc();
 
-	if (pDoc->GetManipMode()==SKETCH_MODE)
-	{
-		this->setCursor(*qCursor_Pencil);
-	}
+	//has been set when the sketch radio button is checked
+	//if (pDoc->GetManipMode()==SKETCH_MODE)
+	//{
+	//	this->setCursor(*qCursor_Pencil);
+	//}
 
 	// Do not call CView::OnPaint() for painting messages
 	glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);

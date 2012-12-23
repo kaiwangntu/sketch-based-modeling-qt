@@ -16,6 +16,12 @@ void SketchInterface::ConnectCPGeneral()
 	QObject::connect(ui.MeshClrR,SIGNAL(valueChanged(int)), this, SLOT(OnSetMeshClrR(int)));
 	QObject::connect(ui.MeshClrG,SIGNAL(valueChanged(int)), this, SLOT(OnSetMeshClrG(int)));
 	QObject::connect(ui.MeshClrB,SIGNAL(valueChanged(int)), this, SLOT(OnSetMeshClrB(int)));
+	QObject::connect(ui.ViewWireframe, SIGNAL(clicked()), this, SLOT(OnViewWireframe()));
+	QObject::connect(ui.ViewSmooth, SIGNAL(clicked()), this, SLOT(OnViewSmooth()));
+	QObject::connect(ui.ViewHybrid, SIGNAL(clicked()), this, SLOT(OnViewHybrid()));
+	QObject::connect(ui.ViewPoints, SIGNAL(clicked()), this, SLOT(OnViewPoints()));
+	QObject::connect(ui.ShowAxis, SIGNAL(clicked()), this, SLOT(OnShowAxis()));
+	QObject::connect(ui.PreviewMesh, SIGNAL(clicked()), this, SLOT(OnPreviewMesh()));
 }
 
 void SketchInterface::CPGeneralInit()
@@ -46,17 +52,55 @@ void SketchInterface::CPGeneralInit()
 	ui.MeshClrG->setValue(MeshColor[1]*1000);
 	ui.MeshClrB->setRange(0,1000);
 	ui.MeshClrB->setValue(MeshColor[2]*1000);
+	//set view style
+	switch (pDoc->GetViewStyle())
+	{
+	case WIREFRAME_VIEW:
+		ui.ViewWireframe->setChecked(true);
+		break;
+	case SMOOTH_VIEW: 
+		ui.ViewSmooth->setChecked(true);
+		break;
+	case HYBRID_VIEW: 
+		ui.ViewHybrid->setChecked(true);
+		break;
+	case POINTS_VIEW: 
+		ui.ViewPoints->setChecked(true);
+		break;
+	default:
+		break;
+	}
+	//show axis or not
+	if (pDoc->IsAxisOn())
+	{
+		ui.ShowAxis->setChecked(true);
+	}
+	else
+	{
+		ui.ShowAxis->setChecked(false);
+	}
+	//show previewed mesh or not
+	if (pDoc->GetRenderPreMesh()==MESH_PREVIEW)
+	{
+		ui.PreviewMesh->setChecked(true);
+	}
+	else if (pDoc->GetRenderPreMesh()==MESH_NOT_PREVIEW)
+	{
+		ui.PreviewMesh->setChecked(false);
+	}
 
 }
 
 void SketchInterface::OnViewSelectMode()
 {
 	this->pDoc->SetManipMode(VIEW_SELECTION_MODE);
+	this->ui.widget->SetViewSelectCursor();
 }
 
 void SketchInterface::OnSketchMode()
 {
 	this->pDoc->SetManipMode(SKETCH_MODE);
+	this->ui.widget->SetSketchCursor();
 }
 
 void SketchInterface::OnFileNew()
@@ -162,5 +206,54 @@ void SketchInterface::OnSetMeshClrB(int iInput)
 		pDoc->SetDefaultColor(vecNewColor);
 	}
 	ui.widget->updateGL();
+}
 
+void SketchInterface::OnViewWireframe()
+{
+	pDoc->SetViewStyle(WIREFRAME_VIEW);
+	ui.widget->updateGL();
+}
+
+void SketchInterface::OnViewSmooth()
+{
+	pDoc->SetViewStyle(SMOOTH_VIEW);
+	ui.widget->updateGL();
+}
+
+void SketchInterface::OnViewHybrid()
+{
+	pDoc->SetViewStyle(HYBRID_VIEW);
+	ui.widget->updateGL();
+}
+
+void SketchInterface::OnViewPoints()
+{
+	pDoc->SetViewStyle(POINTS_VIEW);
+	ui.widget->updateGL();
+}
+
+void SketchInterface::OnShowAxis()
+{
+	if (ui.ShowAxis->isChecked())
+	{
+		pDoc->RenderAxis(true);
+	}
+	else 
+	{
+		pDoc->RenderAxis(false);
+	}
+	ui.widget->updateGL();
+}
+
+void SketchInterface::OnPreviewMesh()
+{
+	if (ui.PreviewMesh->isChecked())
+	{
+		pDoc->SetRenderPreMesh(MESH_PREVIEW);
+	}
+	else 
+	{
+		pDoc->SetRenderPreMesh(MESH_NOT_PREVIEW);
+	}
+	ui.widget->updateGL();
 }
