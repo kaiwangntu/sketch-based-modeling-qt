@@ -12,6 +12,9 @@ SketchInterface::SketchInterface(QWidget *parent, Qt::WFlags flags)
 	ui.setupUi(this);
 	ui.toolBox->setCurrentWidget(ui.Basics);
 	ui.statusBar->showMessage("status bar");
+
+	//connect signals to slots on general control panel
+	ConnectCPGeneral();
 }
 
 SketchInterface::~SketchInterface()
