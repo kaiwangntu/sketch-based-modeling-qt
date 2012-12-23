@@ -15,6 +15,9 @@ SketchInterface::SketchInterface(QWidget *parent, Qt::WFlags flags)
 
 	//connect signals to slots on general control panel
 	ConnectCPGeneral();
+
+	//initialize control panel
+	CPGeneralInit();
 }
 
 SketchInterface::~SketchInterface()

@@ -37,6 +37,8 @@ void SketchDoc::NewDocument()
 	//	//		this->iViewStyle=1;
 	//}
 
+	this->OpenedFileName.clear();
+
 	this->Mesh.clear();
 	this->MeshEditing.Init(this);
 	//this->MeshDeformation.Init(this);
@@ -75,6 +77,7 @@ void SketchDoc::NewDocument()
 
 void SketchDoc::OpenDocument(QString qDocName)
 {
+
 	bool bScale,bCenter;
 	bScale=bCenter=true;
 
@@ -116,6 +119,8 @@ void SketchDoc::OpenDocument(QString qDocName)
 		return;
 	}
 
+	this->OpenedFileName=qDocName;
+
 	// TODO: add loading code here
 	this->MeshEditing.Init(this);
 	//this->MeshDeformation.Init(this);
@@ -144,6 +149,15 @@ void SketchDoc::SaveDocument(QString qDocName)
 		msgBox.setText("Save File Error!");
 		msgBox.exec();
 		return;
+	}
+
+	if (qDocName.isEmpty())
+	{
+		qDocName=this->OpenedFileName;
+	}
+	else
+	{
+		this->OpenedFileName=qDocName;
 	}
 
 	std::ofstream out(qDocName.toUtf8().constData(),ios_base::out | ios_base::trunc);

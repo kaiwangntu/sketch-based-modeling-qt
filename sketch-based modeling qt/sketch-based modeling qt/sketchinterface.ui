@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1319</width>
+    <width>1320</width>
     <height>914</height>
    </rect>
   </property>
@@ -56,78 +56,98 @@
        <rect>
         <x>1</x>
         <y>1</y>
-        <width>149</width>
-        <height>201</height>
+        <width>151</width>
+        <height>111</height>
        </rect>
       </property>
       <property name="title">
        <string>File</string>
       </property>
-      <widget class="QWidget" name="layoutWidget_17">
+      <widget class="QWidget" name="gridLayoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>30</x>
+         <x>10</x>
          <y>20</y>
-         <width>79</width>
-         <height>171</height>
+         <width>158</width>
+         <height>80</height>
         </rect>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_18">
-        <item>
-         <widget class="QPushButton" name="open">
+       <layout class="QGridLayout" name="gridLayout">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
+        <item row="0" column="0">
+         <widget class="QPushButton" name="FileNew">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="text">
+           <string>New</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QPushButton" name="FileOpen">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Open</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="save">
+        <item row="1" column="0">
+         <widget class="QPushButton" name="FileSave">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
           <property name="text">
            <string>Save</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QPushButton" name="statistics">
-          <property name="text">
-           <string>Statistics</string>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="FileSaveAs">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
           </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="reset">
           <property name="text">
-           <string>Reset</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="cancelButton">
-          <property name="text">
-           <string>Quit</string>
+           <string>Save As</string>
           </property>
          </widget>
         </item>
        </layout>
       </widget>
      </widget>
-     <widget class="QGroupBox" name="groupBox_3">
+     <widget class="QGroupBox" name="LightPos">
       <property name="geometry">
        <rect>
         <x>1</x>
-        <y>213</y>
+        <y>120</y>
         <width>149</width>
         <height>111</height>
        </rect>
       </property>
       <property name="title">
-       <string>Color-RGB</string>
+       <string>Light Position</string>
       </property>
       <widget class="QWidget" name="layoutWidget_18">
        <property name="geometry">
         <rect>
          <x>20</x>
-         <y>30</y>
+         <y>20</y>
          <width>111</width>
          <height>77</height>
         </rect>
@@ -138,12 +158,12 @@
           <item>
            <widget class="QLabel" name="label_16">
             <property name="text">
-             <string>R</string>
+             <string>X</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QSlider" name="red">
+           <widget class="QSlider" name="LightX">
             <property name="maximum">
              <number>99</number>
             </property>
@@ -165,12 +185,12 @@
           <item>
            <widget class="QLabel" name="label_17">
             <property name="text">
-             <string>G</string>
+             <string>Y</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QSlider" name="green">
+           <widget class="QSlider" name="LightY">
             <property name="maximum">
              <number>99</number>
             </property>
@@ -189,12 +209,12 @@
           <item>
            <widget class="QLabel" name="label_18">
             <property name="text">
-             <string>B</string>
+             <string>Z</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QSlider" name="blue">
+           <widget class="QSlider" name="LightZ">
             <property name="value">
              <number>99</number>
             </property>
@@ -212,7 +232,7 @@
       <property name="geometry">
        <rect>
         <x>1</x>
-        <y>330</y>
+        <y>360</y>
         <width>149</width>
         <height>221</height>
        </rect>
@@ -300,7 +320,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>560</y>
+        <y>570</y>
         <width>149</width>
         <height>171</height>
        </rect>
@@ -370,6 +390,103 @@
            <bool>false</bool>
           </property>
          </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="MeshColor">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>240</y>
+        <width>149</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Mesh Color</string>
+      </property>
+      <widget class="QWidget" name="layoutWidget_33">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>111</width>
+         <height>77</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_41">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_26">
+          <item>
+           <widget class="QLabel" name="label_31">
+            <property name="text">
+             <string>R</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="MeshClrR">
+            <property name="maximum">
+             <number>99</number>
+            </property>
+            <property name="singleStep">
+             <number>1</number>
+            </property>
+            <property name="value">
+             <number>80</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_27">
+          <item>
+           <widget class="QLabel" name="label_32">
+            <property name="text">
+             <string>G</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="MeshClrG">
+            <property name="maximum">
+             <number>99</number>
+            </property>
+            <property name="value">
+             <number>99</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_28">
+          <item>
+           <widget class="QLabel" name="label_33">
+            <property name="text">
+             <string>B</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSlider" name="MeshClrB">
+            <property name="value">
+             <number>99</number>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </item>
        </layout>
       </widget>
@@ -1290,7 +1407,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1319</width>
+     <width>1320</width>
      <height>21</height>
     </rect>
    </property>

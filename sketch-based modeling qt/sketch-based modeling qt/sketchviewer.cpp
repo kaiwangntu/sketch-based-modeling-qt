@@ -102,7 +102,7 @@ void SketchViewer::paintGL()
 	Render(GL_RENDER);
 }
 
-void SketchViewer::Reset(bool bInitial)
+void SketchViewer::Reset()
 {
 	//Arcball
 	Matrix3fSetIdentity(&LastRot);	// Reset Rotation
