@@ -1,4 +1,5 @@
 #include "../sketchinterface.h"
+#include "../OBJHandle.h"
 #include <QFileDialog>
 
 void SketchInterface::ConnectCPGeneral()
@@ -22,6 +23,10 @@ void SketchInterface::ConnectCPGeneral()
 	QObject::connect(ui.ViewPoints, SIGNAL(clicked()), this, SLOT(OnViewPoints()));
 	QObject::connect(ui.ShowAxis, SIGNAL(clicked()), this, SLOT(OnShowAxis()));
 	QObject::connect(ui.PreviewMesh, SIGNAL(clicked()), this, SLOT(OnPreviewMesh()));
+	QObject::connect(ui.Subdivide, SIGNAL(clicked()), this, SLOT(OnSubdivide()));
+	QObject::connect(ui.SnapShot, SIGNAL(clicked()), this, SLOT(OnSnapShot()));
+	QObject::connect(ui.ExpSce, SIGNAL(clicked()), this, SLOT(OnExpSce()));
+	QObject::connect(ui.ImpSce, SIGNAL(clicked()), this, SLOT(OnImpSce()));
 }
 
 void SketchInterface::CPGeneralInit()
@@ -256,4 +261,48 @@ void SketchInterface::OnPreviewMesh()
 		pDoc->SetRenderPreMesh(MESH_NOT_PREVIEW);
 	}
 	ui.widget->updateGL();
+}
+
+void SketchInterface::OnSubdivide()
+{
+	if (!pDoc->GetMesh().empty())
+	{
+		//OBJHandle::LoopSubDivision(pDoc->GetMesh());
+		OBJHandle::CCSubDivision(pDoc->GetMesh());
+	}
+	ui.widget->updateGL();
+}
+
+void SketchInterface::OnSnapShot()
+{
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),"*.bmp","BMP File (*.bmp)");
+	if (!fileName.isEmpty())
+	{
+		ui.widget->saveSceneImage(fileName);
+	}
+}
+
+void SketchInterface::OnExpSce()
+{
+	QString fileName = QFileDialog::getSaveFileName(this, tr("Save File"),"*.sce","Scene File (*.sce)");
+	if (!fileName.isEmpty())
+	{
+		this->pDoc->ExportScePara(fileName);
+	}
+
+}
+
+void SketchInterface::OnImpSce()
+{
+	QString fileName = QFileDialog::getOpenFileName(this, tr("Open File"),"*.sce","Scene File (*.sce)");
+	if (!fileName.isEmpty())
+	{
+		this->pDoc->ImportScePara(fileName);
+	}
+	//don't forget to update the light position on the control panel
+	float* LightPos=pDoc->GetLightPos();
+	ui.LightX->setValue(LightPos[0]*250+500);
+	ui.LightY->setValue(LightPos[1]*250+500);
+	ui.LightZ->setValue(LightPos[2]*250+500);
+	this->update();
 }

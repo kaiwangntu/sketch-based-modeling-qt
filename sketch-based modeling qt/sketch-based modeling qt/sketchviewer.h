@@ -22,7 +22,7 @@ public:
 	void Reset();
 
 	//snapshot of current view
-	void saveSceneImage(const char* filename);
+	void saveSceneImage(QString filename);
 
 	GLfloat* GetArcballTrans() {return this->Transform.M;}
 	void SetArcballTrans (GLfloat* Input) {memcpy_s(this->Transform.M,sizeof(this->Transform.M),Input,sizeof(GLfloat)*16);}

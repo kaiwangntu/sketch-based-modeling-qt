@@ -344,6 +344,107 @@ void SketchDoc::OnSketchMode()
 	this->iManipMode=SKETCH_MODE;
 }
 
+void SketchDoc::ExportScePara(QString filename)
+{
+	FILE* pFile;
+	fopen_s(&pFile,filename.toUtf8().constData(),"w");
+	//light position
+	fprintf_s(pFile,"#light position\n");
+	fprintf_s(pFile,"%f %f %f %f\n",this->LightPos[0],this->LightPos[1],this->LightPos[2],this->LightPos[3]);
+
+	SketchViewer* pView=this->pParent->GetSketchViewer();
+	//arcball transformation
+	fprintf_s(pFile,"#arball transformation\n");
+	for (int i=0;i<16;i++)
+	{
+		fprintf_s(pFile,"%f ",pView->GetArcballTrans()[i]);
+	}
+	fprintf_s(pFile,"\n");
+	//translate parameter
+	fprintf_s(pFile,"#translation parameter\n");
+	float OutPutX,OutPutY,OutPutZ;
+	pView->GetTranslatePara(OutPutX,OutPutY,OutPutZ);
+	fprintf_s(pFile,"%f %f %f\n",OutPutX,OutPutY,OutPutZ);
+	//viewport
+	fprintf_s(pFile,"#viewport\n");
+	for (int i=0;i<4;i++)
+	{
+		fprintf_s(pFile,"%d ",pView->GetViewport()[i]);
+	}
+	fprintf_s(pFile,"\n");
+	//modelview
+	fprintf_s(pFile,"#modelview\n");
+	for (int i=0;i<16;i++)
+	{
+		fprintf_s(pFile,"%f ",pView->GetModelview()[i]);
+	}
+	fprintf_s(pFile,"\n");
+	//projection
+	fprintf_s(pFile,"#projection\n");
+	for (int i=0;i<16;i++)
+	{
+		fprintf_s(pFile,"%f ",pView->GetProjection()[i]);
+	}
+	fclose(pFile);
+}
+
+void SketchDoc::ImportScePara(QString filename)
+{
+	FILE* pFile;
+	fopen_s(&pFile,filename.toUtf8().constData(),"r");
+
+	//light position
+	char buf[MAX_PATH];
+	fgets(buf, sizeof(buf), pFile);
+	float LightPos[4];
+	fscanf_s(pFile,"%f %f %f %f\n",&LightPos[0],&LightPos[1],&LightPos[2],&LightPos[3]);
+	SetLightPos(LightPos);
+	
+	SketchViewer* pView=this->pParent->GetSketchViewer();
+	//arcball transformation
+	fgets(buf, sizeof(buf), pFile);
+	GLfloat M[16];
+	for (int i=0;i<16;i++)
+	{
+		fscanf_s(pFile,"%f\n",&M[i]);
+	}
+	pView->SetArcballTrans(M);
+
+	//translate parameter
+	fgets(buf, sizeof(buf), pFile);
+	float OutPutX,OutPutY,OutPutZ;
+	fscanf_s(pFile,"%f %f %f\n",&OutPutX,&OutPutY,&OutPutZ);
+	pView->SetTranslatePara(OutPutX,OutPutY,OutPutZ);
+
+	//viewport
+	fgets(buf, sizeof(buf), pFile);
+	GLint viewport[4];
+	for (int i=0;i<4;i++)
+	{
+		fscanf_s(pFile,"%d\n",&viewport[i]);
+	}
+	pView->SetViewport(viewport);
+
+	//modelview
+	fgets(buf, sizeof(buf), pFile);
+	GLdouble modelview[16];
+	for (int i=0;i<16;i++)
+	{
+		fscanf_s(pFile,"%lf\n",&modelview[i]);
+	}
+	pView->SetModelview(modelview);
+
+	//projection
+	fgets(buf, sizeof(buf), pFile);
+	GLdouble projection[16];
+	for (int i=0;i<16;i++)
+	{
+		fscanf_s(pFile,"%lf\n",&projection[i]);
+	}
+	pView->SetProjection(projection);
+	fclose(pFile);
+}
+
 void SketchDoc::OnHelpTest()
 {
 
