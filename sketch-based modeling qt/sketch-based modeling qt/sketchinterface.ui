@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1320</width>
+    <width>1319</width>
     <height>914</height>
    </rect>
   </property>
@@ -33,7 +33,7 @@
       <x>1160</x>
       <y>10</y>
       <width>151</width>
-      <height>761</height>
+      <height>851</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -45,7 +45,7 @@
        <x>0</x>
        <y>0</y>
        <width>151</width>
-       <height>653</height>
+       <height>743</height>
       </rect>
      </property>
      <attribute name="label">
@@ -57,7 +57,7 @@
         <x>1</x>
         <y>1</y>
         <width>151</width>
-        <height>111</height>
+        <height>101</height>
        </rect>
       </property>
       <property name="title">
@@ -68,8 +68,8 @@
         <rect>
          <x>10</x>
          <y>20</y>
-         <width>131</width>
-         <height>80</height>
+         <width>158</width>
+         <height>61</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">
@@ -79,7 +79,7 @@
         <item row="0" column="0">
          <widget class="QPushButton" name="FileNew">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -92,7 +92,7 @@
         <item row="0" column="1">
          <widget class="QPushButton" name="FileOpen">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -105,7 +105,7 @@
         <item row="1" column="0">
          <widget class="QPushButton" name="FileSave">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -118,7 +118,7 @@
         <item row="1" column="1">
          <widget class="QPushButton" name="FileSaveAs">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
@@ -135,7 +135,7 @@
       <property name="geometry">
        <rect>
         <x>1</x>
-        <y>120</y>
+        <y>110</y>
         <width>149</width>
         <height>111</height>
        </rect>
@@ -232,7 +232,7 @@
       <property name="geometry">
        <rect>
         <x>1</x>
-        <y>360</y>
+        <y>350</y>
         <width>149</width>
         <height>211</height>
        </rect>
@@ -330,7 +330,7 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>240</y>
+        <y>230</y>
         <width>149</width>
         <height>111</height>
        </rect>
@@ -423,14 +423,67 @@
        </layout>
       </widget>
      </widget>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>570</y>
+        <width>151</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Others</string>
+      </property>
+      <widget class="QWidget" name="gridLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>101</width>
+         <height>112</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QPushButton" name="Subdivide">
+          <property name="text">
+           <string>Subdivide</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="SnapShot">
+          <property name="text">
+           <string>SnapShot</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ImpSce">
+          <property name="text">
+           <string>Import Scene Para</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="ExpSce">
+          <property name="text">
+           <string>Export Scene Para</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </widget>
     <widget class="QWidget" name="Creation">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>151</width>
-       <height>653</height>
+       <width>98</width>
+       <height>28</height>
       </rect>
      </property>
      <attribute name="label">
@@ -744,8 +797,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>151</width>
-       <height>653</height>
+       <width>98</width>
+       <height>28</height>
       </rect>
      </property>
      <attribute name="label">
@@ -1097,8 +1150,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>151</width>
-       <height>653</height>
+       <width>98</width>
+       <height>28</height>
       </rect>
      </property>
      <attribute name="label">
@@ -1339,7 +1392,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1320</width>
+     <width>1319</width>
      <height>21</height>
     </rect>
    </property>

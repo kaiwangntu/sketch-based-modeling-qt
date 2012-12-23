@@ -59,6 +59,10 @@ public:
 	float* GetLightPos(){return this->LightPos;}
 	void SetLightPos(float* DataIn){memcpy(this->LightPos,DataIn,sizeof(float)*4);}
 
+	//export and import scene parameter
+	void ExportScePara(QString filename);
+	void ImportScePara(QString filename);
+
 	KW_Mesh& GetMesh() {return this->Mesh;}
 	CMeshEditing& GetMeshEditing() {return this->MeshEditing;}
 	//CMeshDeformation& GetMeshDeformation() {return this->MeshDeformation;}

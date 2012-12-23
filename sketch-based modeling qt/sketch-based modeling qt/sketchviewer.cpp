@@ -635,10 +635,10 @@ int SketchViewer::GetSelectName(GLint hits, GLuint buffer[])
 	return iMaxName;
 }
 
-void SketchViewer::saveSceneImage(const char* filename)
+void SketchViewer::saveSceneImage(QString filename)
 {
 	QPixmap pixmap = QPixmap::grabWidget(this);
-	pixmap.save("widget.bmp","bmp");
+	pixmap.save(filename,"bmp");
 }
 
 void SketchViewer::Render(GLenum mode)

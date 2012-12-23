@@ -31,6 +31,10 @@ public slots:
 	void OnViewPoints();
 	void OnShowAxis();
 	void OnPreviewMesh();
+	void OnSubdivide();
+	void OnSnapShot();
+	void OnExpSce();
+	void OnImpSce();
 
 signals:
 
