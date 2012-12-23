@@ -19,7 +19,7 @@ public:
 	void resizeGL(int width, int height);
 
 	//if initilize of the view or not
-	void Reset(bool bInitial);
+	void Reset();
 
 	//snapshot of current view
 	void saveSceneImage(const char* filename);

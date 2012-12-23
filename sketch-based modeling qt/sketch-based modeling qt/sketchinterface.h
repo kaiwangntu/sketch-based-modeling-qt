@@ -15,6 +15,16 @@ public slots:
 	//basic panel
 	void OnViewSelectMode();
 	void OnSketchMode();
+	void OnFileNew();
+	void OnFileOpen();
+	void OnFileSave();
+	void OnFileSaveAs();
+	void OnSetLightX(int iInput);
+	void OnSetLightY(int iInput);
+	void OnSetLightZ(int iInput);
+	void OnSetMeshClrR(int iInput);
+	void OnSetMeshClrG(int iInput);
+	void OnSetMeshClrB(int iInput);
 
 signals:
 

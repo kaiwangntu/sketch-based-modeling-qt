@@ -24,6 +24,9 @@ public:
 	void OpenDocument(QString qDocName);
 	void SaveDocument(QString qDocName);
 
+	void SetOpenedFileName(QString NameIn) {this->OpenedFileName=NameIn;}
+	QString& GetOpenedFileName() {return this->OpenedFileName;}
+
 	int GetViewStyle(){return this->iViewStyle;}
 	void SetViewStyle(int iInput){this->iViewStyle=iInput;}
 
@@ -99,6 +102,9 @@ protected:
 
 	//sketch interface
 	SketchInterface* pParent;
+
+	//name of the current opened file
+	QString OpenedFileName;
 
 	//manipulation mode:0 view,1 select,2 sketch
 	int iManipMode;
