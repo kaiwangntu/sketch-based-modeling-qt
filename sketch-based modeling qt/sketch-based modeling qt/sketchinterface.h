@@ -25,6 +25,12 @@ public slots:
 	void OnSetMeshClrR(int iInput);
 	void OnSetMeshClrG(int iInput);
 	void OnSetMeshClrB(int iInput);
+	void OnViewWireframe();
+	void OnViewSmooth();
+	void OnViewHybrid();
+	void OnViewPoints();
+	void OnShowAxis();
+	void OnPreviewMesh();
 
 signals:
 
