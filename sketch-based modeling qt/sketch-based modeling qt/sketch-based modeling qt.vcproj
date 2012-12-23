@@ -418,6 +418,10 @@
 			<Filter
 				Name="ControlPanel"
 				>
+				<File
+					RelativePath=".\ControlPanel\CPGeneral.cpp"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter

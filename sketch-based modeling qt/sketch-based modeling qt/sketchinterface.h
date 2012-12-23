@@ -10,6 +10,14 @@ class SketchInterface : public QMainWindow
 {
 	Q_OBJECT
 
+public slots:
+	//control panels
+	//basic panel
+	void OnViewSelectMode();
+	void OnSketchMode();
+
+signals:
+
 public:
 	SketchInterface(QWidget *parent = 0, Qt::WFlags flags = 0);
 	~SketchInterface();
@@ -18,10 +26,17 @@ public:
 
 	SketchViewer* GetSketchViewer() {return this->ui.widget;}
 
+	//control panels
+	void ConnectCPGeneral();
+	void CPGeneralInit();
+
+
 private:
 	Ui::SketchInterfaceClass ui;
 	
 	SketchDoc* pDoc;
+	
+
 
 };
 

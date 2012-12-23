@@ -1261,9 +1261,9 @@
       <height>31</height>
      </rect>
     </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_13">
+    <layout class="QHBoxLayout" name="horizontalLayout_ManipMode">
      <item>
-      <widget class="QRadioButton" name="ViewSelect">
+      <widget class="QRadioButton" name="ViewSelectMode">
        <property name="layoutDirection">
         <enum>Qt::LeftToRight</enum>
        </property>
@@ -1276,7 +1276,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="Sketch">
+      <widget class="QRadioButton" name="SketchMode">
        <property name="text">
         <string>Sketch</string>
        </property>
