@@ -113,6 +113,7 @@ void SketchInterface::OnFileNew()
 	this->pDoc->NewDocument();
 	this->ui.widget->Reset();
 	CPGeneralInit();
+	CPCreationInit();
 }
 
 void SketchInterface::OnFileOpen()

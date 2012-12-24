@@ -4,6 +4,7 @@
 	Version="9.00"
 	Name="sketch-based modeling qt"
 	ProjectGUID="{759D9DE0-6C61-4C28-824C-0B2D819855B4}"
+	RootNamespace="sketch-based modeling qt"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
 	>
@@ -418,6 +419,10 @@
 			<Filter
 				Name="ControlPanel"
 				>
+				<File
+					RelativePath=".\ControlPanel\CPCreation.cpp"
+					>
+				</File>
 				<File
 					RelativePath=".\ControlPanel\CPGeneral.cpp"
 					>

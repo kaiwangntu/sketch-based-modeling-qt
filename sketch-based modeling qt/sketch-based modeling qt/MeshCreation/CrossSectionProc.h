@@ -63,10 +63,10 @@ public:
 
 	//read cross section data directly from file to vector<CurveNetwork>
 	//nothing saved in Ctr2SufManager
-	static bool ImportCrossSections(char* fnames,vector<CurveNetwork>& vecCurveNetwork);
+	static bool ImportCrossSections(const char* fnames,vector<CurveNetwork>& vecCurveNetwork);
 	//save cross section data directly from vector<CurveNetwork> to file
 	//nothing saved in Ctr2SufManager
-	static bool ExportCrossSections(char* fnames,vector<CurveNetwork> vecCurveNetwork);
+	static bool ExportCrossSections(const char* fnames,vector<CurveNetwork> vecCurveNetwork);
 
 };
 

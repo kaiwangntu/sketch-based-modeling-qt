@@ -950,7 +950,7 @@ void CMeshCreation::GenerateMesh(KW_Mesh& Mesh,vector<double> vecMeshColor)
 	Mesh.SetRenderInfo(true,true,true,true,true);
 }
 
-void CMeshCreation::ReadContourFromFile(char* pFileName)
+void CMeshCreation::ReadContourFromFile(const char* pFileName)
 {	
 	if (!CCrossSectionProc::ImportCrossSections(pFileName,this->vecCurveNetwork))
 	{
@@ -959,7 +959,7 @@ void CMeshCreation::ReadContourFromFile(char* pFileName)
 	this->bCurvesLeftToFit=true;
 }
 
-void CMeshCreation::WriteContourToFile(char* pFileName)
+void CMeshCreation::WriteContourToFile(const char* pFileName)
 {
 	CCrossSectionProc::ExportCrossSections(pFileName,this->vecCurveNetwork);
 }
