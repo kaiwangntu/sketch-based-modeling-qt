@@ -114,6 +114,7 @@ void SketchInterface::OnFileNew()
 	this->ui.widget->Reset();
 	CPGeneralInit();
 	CPCreationInit();
+	CPEditingInit();
 }
 
 void SketchInterface::OnFileOpen()

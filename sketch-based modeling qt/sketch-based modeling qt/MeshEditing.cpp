@@ -67,10 +67,10 @@ void CMeshEditing::Convert2DProfileTo3D()
 		if (bResultStart&&bResultEnd)//two points on mesh,deformation
 		{
 			cout<<"Deformation Handle Curve..."<<endl;
-			//pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_HANDLE_CURVE);//handle curve, if more than one point
-			//pDoc->GetMeshDeformation().SetCurvePoint2D(this->UserInput2DProfile);
-			//pDoc->GetMeshDeformation().Conver2DCurveTo3D(pDoc->GetMesh());
-			//pDoc->OnModeDeformation();
+			pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_HANDLE_CURVE);//handle curve, if more than one point
+			pDoc->GetMeshDeformation().SetCurvePoint2D(this->UserInput2DProfile);
+			pDoc->GetMeshDeformation().Conver2DCurveTo3D(pDoc->GetMesh());
+			pDoc->OnModeDeformation();
 		}
 		else if (!bResultStart && !bResultEnd)//two points not on mesh,cutting
 		{

@@ -41,7 +41,7 @@ void SketchDoc::NewDocument()
 
 	this->Mesh.clear();
 	this->MeshEditing.Init(this);
-	//this->MeshDeformation.Init(this);
+	this->MeshDeformation.Init(this);
 	//this->MeshExtrusion.Init(this);
 	//this->MeshCutting.Init(this);
 	//this->MeshSmoothing.Init(this);
@@ -123,12 +123,13 @@ void SketchDoc::OpenDocument(QString qDocName)
 
 	// TODO: add loading code here
 	this->MeshEditing.Init(this);
-	//this->MeshDeformation.Init(this);
+	this->MeshDeformation.Init(this);
 	//this->MeshExtrusion.Init(this);
 	//this->MeshCutting.Init(this);
 	//this->MeshSmoothing.Init(this);
 	this->MeshCreation.Init(this);
 	this->Test.Init(this);
+	OnModeEditing();
 	//OnModeDeformation();
 
 	this->iManipMode=VIEW_SELECTION_MODE;
@@ -180,16 +181,16 @@ vector<vector<Point_3> >& SketchDoc::GettestvecvecNewEdgeVertexPos()
 
 bool SketchDoc::JudgeEditPlane()
 {
-//	if (this->MeshDeformation.GetDeformCurvePoints().empty())
-//	{
-//		return false;
-//	}
+	if (this->MeshDeformation.GetDeformCurvePoints().empty())
+	{
+		return false;
+	}
 	return true;
 }
 
 int SketchDoc::GetCurrentDesiredPointsPos(vector<HPCPoint> & DesiredPointsPosition)
 {
-	//return this->MeshDeformation.GetCurrentDesiredPointsPos(DesiredPointsPosition);
+	return this->MeshDeformation.GetCurrentDesiredPointsPos(DesiredPointsPosition);
 	return 0;
 }
 
