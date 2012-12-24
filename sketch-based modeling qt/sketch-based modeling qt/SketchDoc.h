@@ -5,6 +5,7 @@
 #include "GeometryAlgorithm.h"
 #include "MeshCreation/MeshCreation.h"
 #include "MeshEditing.h"
+#include "MeshDeformation/MeshDeformation.h"
 #include "Test.h"
 #include <QString>
 
@@ -65,7 +66,7 @@ public:
 
 	KW_Mesh& GetMesh() {return this->Mesh;}
 	CMeshEditing& GetMeshEditing() {return this->MeshEditing;}
-	//CMeshDeformation& GetMeshDeformation() {return this->MeshDeformation;}
+	CMeshDeformation& GetMeshDeformation() {return this->MeshDeformation;}
 	//CMeshExtrusion& GetMeshExtrusion() {return this->MeshExtrusion;}
 	vector<vector<Point_3> >& GettestvecvecNewEdgeVertexPos();
 	//CMeshCutting& GetMeshCutting() {return this->MeshCutting;}
@@ -139,7 +140,7 @@ protected:
 	//used to judge which editing operation to perform according to type of input sketch
 	CMeshEditing MeshEditing;
 	//deformation
-	//CMeshDeformation MeshDeformation;
+	CMeshDeformation MeshDeformation;
 	//extrusion
 	//CMeshExtrusion MeshExtrusion;
 	vector<vector<Point_3> > testvecvecNewEdgeVertexPos;

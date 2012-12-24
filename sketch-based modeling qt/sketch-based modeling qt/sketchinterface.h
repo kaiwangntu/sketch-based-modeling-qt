@@ -47,6 +47,17 @@ public slots:
 	void OnCRWriteContour();
 	void OnCRAdjustContour();
 	void OnCRGenerateMesh();
+	//editing panel
+	void OnShowDefBluePlane();
+	void OnShowDefGreenPlane();
+	void OnShowDefYellowPlane();
+	void OnShowDefSphere();
+	void OnShowDefHandle();
+	void OnShowDefROI();
+	void OnShowDefAnchor();
+	void OnDefSetROI(int iInput);
+	void OnDefClearROI();
+
 
 signals:
 
@@ -63,6 +74,8 @@ public:
 	void CPGeneralInit();
 	void ConnectCPCreation();
 	void CPCreationInit();
+	void ConnectCPEditing();
+	void CPEditingInit();
 
 
 private:

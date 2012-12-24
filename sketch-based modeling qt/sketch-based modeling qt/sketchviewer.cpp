@@ -165,31 +165,31 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 			{
 				pDoc->GetMeshCreation().Input2DProfilePoint(point);
 			}
-			//else if (pDoc->GetEditMode()==DEFORMATION_MODE)
-			//{
-			//	if ((GetKeyState(0x52)<0))////R key pressed,curve to circle the ROI
-			//	{
-			//		if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
-			//		{
-			//			pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_CIRCLE_ROI);
-			//			pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-			//		}
-			//	}
-			//	else if (GetKeyState(0x50)<0)//P key pressed,points to paint the ROI
-			//	{
-			//		SetCursor(hCursor_PaintROI);
-			//		if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
-			//		{
-			//			pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_PAINT_ROI);
-			//			pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-			//			pDoc->GetMeshDeformation().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
-			//		}
-			//	}
-			//	else 
-			//	{
-			//		pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-			//	}
-			//}
+			else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+			{
+				if ((GetKeyState(0x52)<0))////R key pressed,curve to circle the ROI
+				{
+					if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+					{
+						pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_CIRCLE_ROI);
+						pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+					}
+				}
+				else if (GetKeyState(0x50)<0)//P key pressed,points to paint the ROI
+				{
+					this->setCursor(*qCursor_PaintROI);
+					if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+					{
+						pDoc->GetMeshDeformation().SetDrawingCurveType(DEFORMATION_GESTURE_PAINT_ROI);
+						pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+						pDoc->GetMeshDeformation().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+					}
+				}
+				else 
+				{
+					pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+				}
+			}
 			//else if (pDoc->GetEditMode()==CUTTING_MODE)
 			//{
 			//	pDoc->GetMeshCutting().InputCurvePoint2D(point);
@@ -219,10 +219,10 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 				{
 					pDoc->GetMeshCreation().SetDrawingPlane();
 				}
-		//		else if (pDoc->GetEditMode()==DEFORMATION_MODE)
-		//		{
-		//			pDoc->GetMeshDeformation().SetSelectedItem();
-		//		}
+				else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+				{
+					pDoc->GetMeshDeformation().SetSelectedItem();
+				}
 		//		else if (pDoc->GetEditMode()==EXTRUSION_MODE)
 		//		{
 		//			pDoc->GetMeshExtrusion().SetSelectedItem();
@@ -234,10 +234,10 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 				{
 					pDoc->GetMeshCreation().SetDrawingPlane();
 				}
-		//		else if (pDoc->GetEditMode()==DEFORMATION_MODE)
-		//		{
-		//			pDoc->GetMeshDeformation().SetSelectedItem();
-		//		}
+				else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+				{
+					pDoc->GetMeshDeformation().SetSelectedItem();
+				}
 		//		else if (pDoc->GetEditMode()==EXTRUSION_MODE)
 		//		{
 		//			pDoc->GetMeshExtrusion().SetSelectedItem();
@@ -284,10 +284,10 @@ void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
 			{
 				pDoc->GetMeshEditing().Convert2DProfileTo3D();
 			}
-		//	else if (pDoc->GetEditMode()==DEFORMATION_MODE)
-		//	{
-		//		pDoc->GetMeshDeformation().Conver2DCurveTo3D(pDoc->GetMesh());
-		//	}
+			else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+			{
+				pDoc->GetMeshDeformation().Conver2DCurveTo3D(pDoc->GetMesh());
+			}
 		//	else if (pDoc->GetEditMode()==CUTTING_MODE)
 		//	{
 		//		pDoc->GetMeshCutting().Conver2DCurveTo3D(pDoc->GetMesh());
@@ -358,11 +358,11 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 				this->setCursor(*qCursor_Move);
 				pDoc->GetMeshCreation().TranslateDrawingPlane(0.01f*g_iStepX);
 			}
-	//		else if (pDoc->GetEditMode()==DEFORMATION_MODE && (nFlags & MK_LBUTTON))
-	//		{
-	//			SetCursor(hCursor_Move);
-	//			pDoc->GetMeshDeformation().ManipSelItem(g_iStepX,g_iStepY);
-	//		}
+			else if (pDoc->GetEditMode()==DEFORMATION_MODE && (event->buttons()&Qt::LeftButton))
+			{
+				this->setCursor(*qCursor_Move);
+				pDoc->GetMeshDeformation().ManipSelItem(g_iStepX,g_iStepY);
+			}
 	//		else if (pDoc->GetEditMode()==EXTRUSION_MODE && (nFlags & MK_LBUTTON))
 	//		{
 	//			SetCursor(hCursor_Rotate);
@@ -381,30 +381,30 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 		{
 			pDoc->GetMeshEditing().Input2DProfilePoint(point);
 		}
-	//	else if (pDoc->GetEditMode()==DEFORMATION_MODE && (nFlags & MK_LBUTTON))
-	//	{
-	//		if ((GetKeyState(0x52)<0))//R key pressed,curve to circle the ROI
-	//		{
-	//			if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
-	//			{
-	//				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-	//			}
-	//		}
-	//		else if (GetKeyState(0x50)<0)//P key pressed,points to paint the ROI
-	//		{
-	//			SetCursor(hCursor_PaintROI);
-	//			if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
-	//			{
-	//				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-	//				pDoc->GetMeshDeformation().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
-	//			}
-	//		}
-	//		else
-	//		{
-	//			pDoc->GetMeshDeformation().InputCurvePoint2D(point);
-	//		}
+		else if (pDoc->GetEditMode()==DEFORMATION_MODE && (event->buttons()&Qt::LeftButton))
+		{
+			if ((GetKeyState(0x52)<0))//R key pressed,curve to circle the ROI
+			{
+				if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+				{
+					pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+				}
+			}
+			else if (GetKeyState(0x50)<0)//P key pressed,points to paint the ROI
+			{
+				this->setCursor(*qCursor_PaintROI);
+				if ((!pDoc->GetMeshDeformation().GetHandleNbVertex().empty()))
+				{
+					pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+					pDoc->GetMeshDeformation().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+				}
+			}
+			else
+			{
+				pDoc->GetMeshDeformation().InputCurvePoint2D(point);
+			}
 
-	//	}
+		}
 	//	else if (pDoc->GetEditMode()==CUTTING_MODE && (nFlags & MK_LBUTTON))
 	//	{
 	//		pDoc->GetMeshCutting().InputCurvePoint2D(point);
@@ -457,10 +457,10 @@ void SketchViewer::wheelEvent(QWheelEvent *event)
 		{
 			pDoc->GetMeshCreation().AdjustPlaneBoundary(event->delta());
 		}
-	//	else if (pDoc->GetEditMode()==DEFORMATION_MODE)
-	//	{
-	//		pDoc->GetMeshDeformation().AdjustPlaneBoundary(zDelta);
-	//	}
+		else if (pDoc->GetEditMode()==DEFORMATION_MODE)
+		{
+			pDoc->GetMeshDeformation().AdjustPlaneBoundary(event->delta());
+		}
 	//	else if (pDoc->GetEditMode()==EXTRUSION_MODE)
 	//	{
 	//		pDoc->GetMeshExtrusion().AdjustPlaneBoundary(zDelta);
@@ -754,7 +754,7 @@ void SketchViewer::Render(GLenum mode)
 		{
 			this->renderText(5,25,QString("Deformation Mode"),QFont("arial",static_cast<int>(1*20)));
 		}
-		//pDoc->GetMeshDeformation().Render(pDoc->GetViewStyle(),mode,pDoc->IsDualMeshShown());
+		pDoc->GetMeshDeformation().Render(pDoc->GetViewStyle(),mode,pDoc->IsDualMeshShown());
 		break;
 	case EXTRUSION_MODE:
 		if (mode==GL_RENDER)

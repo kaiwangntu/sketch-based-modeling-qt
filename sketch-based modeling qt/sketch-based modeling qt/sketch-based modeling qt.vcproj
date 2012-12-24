@@ -424,7 +424,47 @@
 					>
 				</File>
 				<File
+					RelativePath=".\ControlPanel\CPEditing.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\ControlPanel\CPGeneral.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeshDeformation"
+				>
+				<File
+					RelativePath=".\MeshDeformation\DeformationAlgorithm.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\DeformLocalRefine.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\DualMeshDeform.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\EdgeBasedDeform.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\MatConsDeform.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\MeshDeformation.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\RSRCellDeform.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\WedgeEdgeBasedDeform.cpp"
 					>
 				</File>
 			</Filter>
@@ -713,6 +753,38 @@
 						>
 					</File>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="MeshDeformation"
+				>
+				<File
+					RelativePath=".\MeshDeformation\DeformationAlgorithm.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\DualMeshDeform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\EdgeBasedDeform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\MatConsDeform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\MeshDeformation.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\RSRCellDeform.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshDeformation\WedgeEdgeBasedDeform.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<Filter
