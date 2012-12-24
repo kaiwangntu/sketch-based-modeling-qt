@@ -12,6 +12,9 @@ void SketchInterface::ConnectCPEditing()
 	QObject::connect(ui.DefAnchor, SIGNAL(clicked()), this, SLOT(OnShowDefAnchor()));
 	QObject::connect(ui.DefSetROI, SIGNAL(valueChanged(int)), this, SLOT(OnDefSetROI(int)));
 	QObject::connect(ui.DefClearROI, SIGNAL(clicked()), this, SLOT(OnDefClearROI()));
+	QObject::connect(ui.DefIter, SIGNAL(valueChanged(int)), this, SLOT(OnDefSetIter(int)));
+	QObject::connect(ui.DefLambda, SIGNAL(valueChanged(double)), this, SLOT(OnDefSetLambda(double)));
+	QObject::connect(ui.DefDeform, SIGNAL(clicked()), this, SLOT(OnDefDeform()));
 }
 
 void SketchInterface::CPEditingInit()
@@ -28,7 +31,15 @@ void SketchInterface::CPEditingInit()
 	ui.DefSetROI->setRange(0,100);
 	ui.DefSetROI->setTickInterval(1);
 	ui.DefSetROI->setValue(pDoc->GetMeshDeformation().GetSelectionRange()*100);
-
+	//iteration and lambda value
+	int iIterNum=0;
+	double dLambda=0;
+	pDoc->GetMeshDeformation().GetFlexibleDeformPara(iIterNum,dLambda);
+	ui.DefIter->setRange(0,20);
+	ui.DefIter->setValue(iIterNum);
+	ui.DefLambda->setRange(0,1);
+	ui.DefLambda->setSingleStep(0.1);
+	ui.DefLambda->setValue(dLambda);
 }
 
 void SketchInterface::OnShowDefBluePlane()
@@ -84,4 +95,27 @@ void SketchInterface::OnDefClearROI()
 	ui.DefSetROI->setValue(0);
 	pDoc->GetMeshDeformation().SetSelectionRange(0,pDoc->GetMesh());
 	ui.widget->updateGL();
+}
+
+void SketchInterface::OnDefSetIter(int iInput)
+{
+	int iIterNum=0;
+	double dLambda=0;
+	pDoc->GetMeshDeformation().GetFlexibleDeformPara(iIterNum,dLambda);
+	pDoc->GetMeshDeformation().SetFlexibleDeformPara(iInput,dLambda);
+}
+
+void SketchInterface::OnDefSetLambda(double dInput)
+{
+	int iIterNum=0;
+	double dLambda=0;
+	pDoc->GetMeshDeformation().GetFlexibleDeformPara(iIterNum,dLambda);
+	pDoc->GetMeshDeformation().SetFlexibleDeformPara(iIterNum,dInput);
+}
+
+void SketchInterface::OnDefDeform()
+{
+	vector<Point_3> emptyVec;
+	pDoc->SetTestPoints(emptyVec);
+	pDoc->GetMeshDeformation().SetModifiedPointsPos(pDoc->GetMesh(),pDoc->GetTestPointsRef());
 }

@@ -6,7 +6,8 @@ extern "C"
 #include <taucs.h>
 };
 
-#ifdef DEBUG
+//#ifdef DEBUG
+#ifndef QT_NO_DEBUG
 #pragma comment(lib,"libatlas.lib")
 #pragma comment(lib,"libcblas.lib")
 #pragma comment(lib,"libf77blas.lib")

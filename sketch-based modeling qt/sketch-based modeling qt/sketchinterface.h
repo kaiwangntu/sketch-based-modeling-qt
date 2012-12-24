@@ -57,6 +57,9 @@ public slots:
 	void OnShowDefAnchor();
 	void OnDefSetROI(int iInput);
 	void OnDefClearROI();
+	void OnDefSetIter(int iInput);
+	void OnDefSetLambda(double dInput);
+	void OnDefDeform();
 
 
 signals:
