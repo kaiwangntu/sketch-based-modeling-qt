@@ -68,9 +68,9 @@ public:
 
 	void CopyCNFromLastParaPlane(int iPlaneType);
 
-	void ReadContourFromFile(char* pFileName);
+	void ReadContourFromFile(const char* pFileName);
 
-	void WriteContourToFile(char* pFileName);
+	void WriteContourToFile(const char* pFileName);
 
 	void GenerateMesh(KW_Mesh& Mesh,vector<double> vecMeshColor);
 

@@ -35,6 +35,18 @@ public slots:
 	void OnSnapShot();
 	void OnExpSce();
 	void OnImpSce();
+	//creation panel
+	void OnShowCRBluePlane();
+	void OnShowCRGreenPlane();
+	void OnShowCRRedPlane();
+	void OnShowCRCN();
+	void OnShowCROnlyUserSketch();
+	void OnShowCRSS();
+	void OnCRAutoRot();
+	void OnCRReadContour();
+	void OnCRWriteContour();
+	void OnCRAdjustContour();
+	void OnCRGenerateMesh();
 
 signals:
 
@@ -49,6 +61,8 @@ public:
 	//control panels
 	void ConnectCPGeneral();
 	void CPGeneralInit();
+	void ConnectCPCreation();
+	void CPCreationInit();
 
 
 private:

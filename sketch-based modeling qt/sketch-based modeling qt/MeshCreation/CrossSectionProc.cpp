@@ -1102,7 +1102,7 @@ void CCrossSectionProc::SavePartialCSInfo(CurveNetwork& CnToSave,int iCSInd,vect
 	}
 }
 
-bool CCrossSectionProc::ImportCrossSections(char* fnames,vector<CurveNetwork>& vecCurveNetwork)
+bool CCrossSectionProc::ImportCrossSections(const char* fnames,vector<CurveNetwork>& vecCurveNetwork)
 {
 	FILE* fin = fopen(fnames, "r");
 	//	FILE* fin = fopen( "sshape.contour", "r");
@@ -1236,7 +1236,7 @@ bool CCrossSectionProc::ImportCrossSections(char* fnames,vector<CurveNetwork>& v
 	return true;
 }
 
-bool CCrossSectionProc::ExportCrossSections(char* fnames,vector<CurveNetwork> vecCurveNetwork)
+bool CCrossSectionProc::ExportCrossSections(const char* fnames,vector<CurveNetwork> vecCurveNetwork)
 {
 	if (vecCurveNetwork.empty())
 	{
