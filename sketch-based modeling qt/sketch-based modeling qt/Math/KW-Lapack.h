@@ -9,7 +9,8 @@ extern"C"
 #include <clapack.h>
 }
 
-#ifdef DEBUG
+//#ifdef DEBUG
+#ifndef QT_NO_DEBUG
 #pragma comment(lib,"libf2cd.lib")
 #pragma comment(lib,"BLASd.lib")
 #pragma comment(lib,"clapackd.lib")

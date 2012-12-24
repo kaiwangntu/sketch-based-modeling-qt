@@ -2329,7 +2329,8 @@ bool CPaintingOnMesh::PaintingScrPointOnFrontalMesh(KW_Mesh& Mesh,QPoint UserScr
 void CPaintingOnMesh::CheckLinearCombineInfo(vector<HandlePointStruct> vecHandlePoint,
 											 vector<Vertex_handle> vecHandleNbVertex)
 {
-#ifdef DEBUG
+//#ifdef DEBUG
+#ifndef QT_NO_DEBUG
 	for (unsigned int i=0;i<vecHandlePoint.size();i++)
 	{
 		double Pointx=vecHandlePoint.at(i).PointPos.x();
@@ -2350,7 +2351,7 @@ void CPaintingOnMesh::CheckLinearCombineInfo(vector<HandlePointStruct> vecHandle
 		dDifferenceX=dDifferenceX-Pointx;
 		dDifferenceY=dDifferenceY-Pointy;
 		dDifferenceZ=dDifferenceZ-Pointz;
-		DBWindowWrite("%f\t%f\t%f\n",dDifferenceX,dDifferenceY,dDifferenceZ);
+		cout<<dDifferenceX<<" "<<dDifferenceY<<" "<<dDifferenceZ<<endl;
 	}
 #endif
 }
