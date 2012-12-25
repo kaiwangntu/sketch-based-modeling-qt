@@ -75,10 +75,10 @@ void CMeshEditing::Convert2DProfileTo3D()
 		else if (!bResultStart && !bResultEnd)//two points not on mesh,cutting
 		{
 			cout<<"Cutting Curve..."<<endl;
-			//pDoc->GetMeshCutting().SetDrawingCurveType(CUTTING_ACROSS_CURVE);
-			//pDoc->GetMeshCutting().SetCurvePoint2D(this->UserInput2DProfile);
-			//pDoc->GetMeshCutting().Conver2DCurveTo3D(pDoc->GetMesh());
-			//pDoc->OnModeCutting();
+			pDoc->GetMeshCutting().SetDrawingCurveType(CUTTING_ACROSS_CURVE);
+			pDoc->GetMeshCutting().SetCurvePoint2D(this->UserInput2DProfile);
+			pDoc->GetMeshCutting().Conver2DCurveTo3D(pDoc->GetMesh());
+			pDoc->OnModeCutting();
 		}
 		else
 		{
@@ -90,10 +90,10 @@ void CMeshEditing::Convert2DProfileTo3D()
 	else//closed curve
 	{
 		cout<<"Extrusion Curve..."<<endl;
-		//pDoc->GetMeshExtrusion().SetDrawingCurveType(EXTRUSION_CLOSED_CURVE);
-		//pDoc->GetMeshExtrusion().SetCurvePoint2D(this->UserInput2DProfile);
-		//pDoc->GetMeshExtrusion().Conver2DCurveTo3D(pDoc->GetMesh());
-		//pDoc->OnModeExtrusion();
+		pDoc->GetMeshExtrusion().SetDrawingCurveType(EXTRUSION_CLOSED_CURVE);
+		pDoc->GetMeshExtrusion().SetCurvePoint2D(this->UserInput2DProfile);
+		pDoc->GetMeshExtrusion().Conver2DCurveTo3D(pDoc->GetMesh());
+		pDoc->OnModeExtrusion();
 	}
 	this->UserInput2DProfile.clear();
 }

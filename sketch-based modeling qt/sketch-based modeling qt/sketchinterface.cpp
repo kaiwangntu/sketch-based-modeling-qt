@@ -14,6 +14,7 @@ SketchInterface::SketchInterface(QWidget *parent, Qt::WFlags flags)
 	ui.statusBar->showMessage("status bar");
 
 	//connect signals to slots on general control panel
+	connect(ui.toolBox, SIGNAL(currentChanged(int)), this, SLOT(OnSwitchPanel(int)));
 	ConnectCPGeneral();
 	ConnectCPCreation();
 	ConnectCPEditing();
@@ -27,4 +28,20 @@ SketchInterface::SketchInterface(QWidget *parent, Qt::WFlags flags)
 SketchInterface::~SketchInterface()
 {
 	delete this->pDoc;
+}
+
+void SketchInterface::OnSwitchPanel(int iIndex)
+{
+	if (this->ui.toolBox->widget(iIndex)==ui.Creation)
+	{
+		this->pDoc->OnModeCreation();
+	}
+	else if (this->ui.toolBox->widget(iIndex)==ui.Edit)
+	{
+		this->pDoc->OnModeEditing();
+	}
+	else if (this->ui.toolBox->widget(iIndex)==ui.Test)
+	{
+		this->pDoc->OnModeTest();
+	}
 }

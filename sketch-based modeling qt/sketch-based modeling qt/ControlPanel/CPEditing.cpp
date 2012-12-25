@@ -15,6 +15,7 @@ void SketchInterface::ConnectCPEditing()
 	QObject::connect(ui.DefIter, SIGNAL(valueChanged(int)), this, SLOT(OnDefSetIter(int)));
 	QObject::connect(ui.DefLambda, SIGNAL(valueChanged(double)), this, SLOT(OnDefSetLambda(double)));
 	QObject::connect(ui.DefDeform, SIGNAL(clicked()), this, SLOT(OnDefDeform()));
+	QObject::connect(ui.ExtExtrude, SIGNAL(clicked()), this, SLOT(OnExExtrude()));
 }
 
 void SketchInterface::CPEditingInit()
@@ -118,4 +119,12 @@ void SketchInterface::OnDefDeform()
 	vector<Point_3> emptyVec;
 	pDoc->SetTestPoints(emptyVec);
 	pDoc->GetMeshDeformation().SetModifiedPointsPos(pDoc->GetMesh(),pDoc->GetTestPointsRef());
+	pDoc->OnModeEditing();
+}
+
+void SketchInterface::OnExExtrude()
+{
+	pDoc->GetMeshExtrusion().ExtrudeMesh(pDoc->GetMesh(),pDoc->GettestvecvecNewEdgeVertexPos());
+	pDoc->GettestvecvecNewEdgeVertexPos().clear();
+	pDoc->OnModeEditing();
 }

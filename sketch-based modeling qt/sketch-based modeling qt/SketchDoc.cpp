@@ -42,9 +42,9 @@ void SketchDoc::NewDocument()
 	this->Mesh.clear();
 	this->MeshEditing.Init(this);
 	this->MeshDeformation.Init(this);
-	//this->MeshExtrusion.Init(this);
-	//this->MeshCutting.Init(this);
-	//this->MeshSmoothing.Init(this);
+	this->MeshExtrusion.Init(this);
+	this->MeshCutting.Init(this);
+	this->MeshSmoothing.Init(this);
 	this->MeshCreation.Init(this);
 	this->Test.Init(this);
 	OnModeCreation();
@@ -124,9 +124,9 @@ void SketchDoc::OpenDocument(QString qDocName)
 	// TODO: add loading code here
 	this->MeshEditing.Init(this);
 	this->MeshDeformation.Init(this);
-	//this->MeshExtrusion.Init(this);
-	//this->MeshCutting.Init(this);
-	//this->MeshSmoothing.Init(this);
+	this->MeshExtrusion.Init(this);
+	this->MeshCutting.Init(this);
+	this->MeshSmoothing.Init(this);
 	this->MeshCreation.Init(this);
 	this->Test.Init(this);
 	OnModeEditing();
@@ -206,12 +206,6 @@ void SketchDoc::OnModeCreation()
 		this->iEditMode=CREATION_MODE;
 	}
 
-	//CControlPanel* pCP=(CControlPanel*)(this->GetView(RUNTIME_CLASS(CControlPanel)));
-	//if (pCP->GetCPCreation()!=NULL)
-	//{
-	//	pCP->GetCPTab().SetCurFocus(CREATION_MODE+1);//1,tab for creation
-	//}
-
 	this->pParent->update();
 }
 
@@ -226,6 +220,8 @@ void SketchDoc::OnModeEditing()
 	{
 		this->iEditMode=EDITING_MODE;
 	}
+
+	this->pParent->GetSketchUI()->toolBox->setCurrentWidget(this->pParent->GetSketchUI()->Edit);
 
 	//CControlPanel* pCP=(CControlPanel*)(this->GetView(RUNTIME_CLASS(CControlPanel)));
 	//if (pCP->GetCPEditing()!=NULL)
@@ -247,6 +243,8 @@ void SketchDoc::OnModeDeformation()
 		this->iEditMode=DEFORMATION_MODE;
 	}
 
+	this->pParent->GetSketchUI()->toolBox->setCurrentWidget(this->pParent->GetSketchUI()->Edit);
+
 	//CControlPanel* pCP=(CControlPanel*)(this->GetView(RUNTIME_CLASS(CControlPanel)));
 	//if (pCP->GetCPDeformation()!=NULL)
 	//{
@@ -266,6 +264,8 @@ void SketchDoc::OnModeExtrusion()
 	{
 		this->iEditMode=EXTRUSION_MODE;
 	}
+
+	this->pParent->GetSketchUI()->toolBox->setCurrentWidget(this->pParent->GetSketchUI()->Edit);
 
 	//CControlPanel* pCP=(CControlPanel*)(this->GetView(RUNTIME_CLASS(CControlPanel)));
 	//if (pCP->GetCPExtrusion()!=NULL)
@@ -287,6 +287,8 @@ void SketchDoc::OnModeCutting()
 		this->iEditMode=CUTTING_MODE;
 	}
 
+	this->pParent->GetSketchUI()->toolBox->setCurrentWidget(this->pParent->GetSketchUI()->Edit);
+
 	//CControlPanel* pCP=(CControlPanel*)(this->GetView(RUNTIME_CLASS(CControlPanel)));
 	//if (pCP->GetCPCutting()!=NULL)
 	//{
@@ -306,6 +308,8 @@ void SketchDoc::OnModeSmoothing()
 	{
 		this->iEditMode=SMOOTHING_MODE;
 	}
+
+	this->pParent->GetSketchUI()->toolBox->setCurrentWidget(this->pParent->GetSketchUI()->Edit);
 
 	//CControlPanel* pCP=(CControlPanel*)(this->GetView(RUNTIME_CLASS(CControlPanel)));
 	//if (pCP->GetCPSmoothing()!=NULL)

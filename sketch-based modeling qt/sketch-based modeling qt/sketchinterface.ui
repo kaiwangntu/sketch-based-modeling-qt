@@ -33,19 +33,19 @@
       <x>1160</x>
       <y>10</y>
       <width>151</width>
-      <height>851</height>
+      <height>821</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Basics">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>98</width>
-       <height>28</height>
+       <width>151</width>
+       <height>713</height>
       </rect>
      </property>
      <attribute name="label">
@@ -56,27 +56,24 @@
        <rect>
         <x>1</x>
         <y>1</y>
-        <width>151</width>
-        <height>101</height>
+        <width>149</width>
+        <height>141</height>
        </rect>
       </property>
       <property name="title">
        <string>File</string>
       </property>
-      <widget class="QWidget" name="gridLayoutWidget_2">
+      <widget class="QWidget" name="gridLayoutWidget_3">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>30</x>
          <y>20</y>
-         <width>158</width>
-         <height>61</height>
+         <width>101</width>
+         <height>112</height>
         </rect>
        </property>
-       <layout class="QGridLayout" name="gridLayout">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetDefaultConstraint</enum>
-        </property>
-        <item row="0" column="0">
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
          <widget class="QPushButton" name="FileNew">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -89,7 +86,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item>
          <widget class="QPushButton" name="FileOpen">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -102,7 +99,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="0">
+        <item>
          <widget class="QPushButton" name="FileSave">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -115,7 +112,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item>
          <widget class="QPushButton" name="FileSaveAs">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Maximum">
@@ -135,7 +132,7 @@
       <property name="geometry">
        <rect>
         <x>1</x>
-        <y>110</y>
+        <y>150</y>
         <width>149</width>
         <height>111</height>
        </rect>
@@ -232,9 +229,9 @@
       <property name="geometry">
        <rect>
         <x>1</x>
-        <y>350</y>
+        <y>390</y>
         <width>149</width>
-        <height>211</height>
+        <height>181</height>
        </rect>
       </property>
       <property name="title">
@@ -246,7 +243,7 @@
          <x>30</x>
          <y>20</y>
          <width>91</width>
-         <height>131</height>
+         <height>101</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="ViewStyle">
@@ -297,7 +294,7 @@
        <property name="geometry">
         <rect>
          <x>30</x>
-         <y>160</y>
+         <y>130</y>
          <width>91</width>
          <height>42</height>
         </rect>
@@ -329,8 +326,8 @@
      <widget class="QGroupBox" name="MeshColor">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>230</y>
+        <x>1</x>
+        <y>270</y>
         <width>149</width>
         <height>111</height>
        </rect>
@@ -431,7 +428,7 @@
        <rect>
         <x>0</x>
         <y>570</y>
-        <width>151</width>
+        <width>149</width>
         <height>141</height>
        </rect>
       </property>
@@ -485,8 +482,8 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>98</width>
-       <height>28</height>
+       <width>151</width>
+       <height>713</height>
       </rect>
      </property>
      <attribute name="label">
@@ -651,7 +648,7 @@
        <x>0</x>
        <y>0</y>
        <width>151</width>
-       <height>743</height>
+       <height>713</height>
       </rect>
      </property>
      <attribute name="label">
@@ -872,214 +869,51 @@
        </layout>
       </widget>
      </widget>
+     <widget class="QGroupBox" name="ModeExtru">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>420</y>
+        <width>149</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>Extrusion</string>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget_5">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout_6">
+        <item>
+         <widget class="QPushButton" name="ExtExtrude">
+          <property name="text">
+           <string>Extrude</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
     </widget>
     <widget class="QWidget" name="Test">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>98</width>
-       <height>28</height>
+       <width>151</width>
+       <height>713</height>
       </rect>
      </property>
      <attribute name="label">
       <string>Test</string>
      </attribute>
-     <widget class="QGroupBox" name="selection_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>131</width>
-        <height>181</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Preprocess</string>
-      </property>
-      <widget class="QWidget" name="layoutWidget_30">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>20</y>
-         <width>91</width>
-         <height>151</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_38">
-        <item>
-         <widget class="QPushButton" name="anchorpts">
-          <property name="text">
-           <string>Anchor Pts</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="controlpts">
-          <property name="text">
-           <string>Control Pts</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="done">
-          <property name="text">
-           <string>Done</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="cancelall">
-          <property name="text">
-           <string>Cancel All</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="rotation_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>200</y>
-        <width>131</width>
-        <height>131</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>Rotation</string>
-      </property>
-      <widget class="QWidget" name="layoutWidget_31">
-       <property name="geometry">
-        <rect>
-         <x>11</x>
-         <y>35</y>
-         <width>111</width>
-         <height>77</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_39">
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_23">
-          <item>
-           <widget class="QLabel" name="label_28">
-            <property name="text">
-             <string>R</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="xrotation">
-            <property name="maximum">
-             <number>360</number>
-            </property>
-            <property name="singleStep">
-             <number>10</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_24">
-          <item>
-           <widget class="QLabel" name="label_29">
-            <property name="text">
-             <string>G</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="yrotation">
-            <property name="maximum">
-             <number>360</number>
-            </property>
-            <property name="singleStep">
-             <number>10</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="horizontalLayout_25">
-          <item>
-           <widget class="QLabel" name="label_30">
-            <property name="text">
-             <string>B</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QSlider" name="zrotation">
-            <property name="maximum">
-             <number>360</number>
-            </property>
-            <property name="singleStep">
-             <number>10</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-       </layout>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="groupBox_8">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>350</y>
-        <width>131</width>
-        <height>101</height>
-       </rect>
-      </property>
-      <property name="title">
-       <string>ARAP Deform</string>
-      </property>
-      <widget class="QWidget" name="layoutWidget_32">
-       <property name="geometry">
-        <rect>
-         <x>11</x>
-         <y>30</y>
-         <width>109</width>
-         <height>48</height>
-        </rect>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_40">
-        <item>
-         <widget class="QLabel" name="iteration_5">
-          <property name="text">
-           <string>Iteration </string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QSpinBox" name="iteration_6">
-          <property name="minimum">
-           <number>0</number>
-          </property>
-          <property name="maximum">
-           <number>1000</number>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
     </widget>
    </widget>
    <widget class="QWidget" name="layoutWidget_3">

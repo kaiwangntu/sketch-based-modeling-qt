@@ -470,6 +470,38 @@
 					>
 				</File>
 			</Filter>
+			<Filter
+				Name="MeshExtrusion"
+				>
+				<File
+					RelativePath=".\MeshExtrusion\MeshExtrusion.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshExtrusion\Tunnelling.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeshCutting"
+				>
+				<File
+					RelativePath=".\MeshCutting\MeshCutting.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeshSmoothing"
+				>
+				<File
+					RelativePath=".\MeshSmoothing\MeshSmoothing.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshSmoothing\SmoothingAlgorithm.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -785,6 +817,38 @@
 				</File>
 				<File
 					RelativePath=".\MeshDeformation\WedgeEdgeBasedDeform.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeshExtrusion"
+				>
+				<File
+					RelativePath=".\MeshExtrusion\MeshExtrusion.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshExtrusion\Tunnelling.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeshCutting"
+				>
+				<File
+					RelativePath=".\MeshCutting\MeshCutting.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="MeshSmoothing"
+				>
+				<File
+					RelativePath=".\MeshSmoothing\MeshSmoothing.h"
+					>
+				</File>
+				<File
+					RelativePath=".\MeshSmoothing\SmoothingAlgorithm.h"
 					>
 				</File>
 			</Filter>
