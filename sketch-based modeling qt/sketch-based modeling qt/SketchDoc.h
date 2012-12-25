@@ -6,6 +6,9 @@
 #include "MeshCreation/MeshCreation.h"
 #include "MeshEditing.h"
 #include "MeshDeformation/MeshDeformation.h"
+#include "MeshExtrusion/MeshExtrusion.h"
+#include "MeshCutting/MeshCutting.h"
+#include "MeshSmoothing/MeshSmoothing.h"
 #include "Test.h"
 #include <QString>
 
@@ -67,10 +70,10 @@ public:
 	KW_Mesh& GetMesh() {return this->Mesh;}
 	CMeshEditing& GetMeshEditing() {return this->MeshEditing;}
 	CMeshDeformation& GetMeshDeformation() {return this->MeshDeformation;}
-	//CMeshExtrusion& GetMeshExtrusion() {return this->MeshExtrusion;}
+	CMeshExtrusion& GetMeshExtrusion() {return this->MeshExtrusion;}
 	vector<vector<Point_3> >& GettestvecvecNewEdgeVertexPos();
-	//CMeshCutting& GetMeshCutting() {return this->MeshCutting;}
-	//CMeshSmoothing& GetMeshSmoothing() {return this->MeshSmoothing;}
+	CMeshCutting& GetMeshCutting() {return this->MeshCutting;}
+	CMeshSmoothing& GetMeshSmoothing() {return this->MeshSmoothing;}
 	CMeshCreation& GetMeshCreation() {return this->MeshCreation;}
 	CTest& GetTest() {return this->Test;}
 
@@ -142,12 +145,12 @@ protected:
 	//deformation
 	CMeshDeformation MeshDeformation;
 	//extrusion
-	//CMeshExtrusion MeshExtrusion;
+	CMeshExtrusion MeshExtrusion;
 	vector<vector<Point_3> > testvecvecNewEdgeVertexPos;
 	//cutting
-	//CMeshCutting MeshCutting;
+	CMeshCutting MeshCutting;
 	//smoothing
-	//CMeshSmoothing MeshSmoothing;
+	CMeshSmoothing MeshSmoothing;
 	//test
 	CTest Test;
 	vector<Point_3> testCentroidPoint;

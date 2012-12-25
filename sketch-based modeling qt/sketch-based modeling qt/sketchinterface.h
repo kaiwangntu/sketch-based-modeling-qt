@@ -12,6 +12,8 @@ class SketchInterface : public QMainWindow
 
 public slots:
 	//control panels
+	//switch panel
+	void OnSwitchPanel(int iIndex);
 	//basic panel
 	void OnViewSelectMode();
 	void OnSketchMode();
@@ -60,6 +62,7 @@ public slots:
 	void OnDefSetIter(int iInput);
 	void OnDefSetLambda(double dInput);
 	void OnDefDeform();
+	void OnExExtrude();
 
 
 signals:
@@ -71,6 +74,8 @@ public:
 	SketchDoc* GetDoc(){return this->pDoc;}
 
 	SketchViewer* GetSketchViewer() {return this->ui.widget;}
+
+	Ui::SketchInterfaceClass* GetSketchUI() {return &(this->ui);}
 
 	//control panels
 	void ConnectCPGeneral();

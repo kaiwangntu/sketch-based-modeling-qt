@@ -163,7 +163,8 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 			}
 			else if (pDoc->GetEditMode()==EDITING_MODE)
 			{
-				pDoc->GetMeshCreation().Input2DProfilePoint(point);
+				//pDoc->GetMeshCreation().Input2DProfilePoint(point);
+				pDoc->GetMeshEditing().Input2DProfilePoint(point);
 			}
 			else if (pDoc->GetEditMode()==DEFORMATION_MODE)
 			{
@@ -190,21 +191,21 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 					pDoc->GetMeshDeformation().InputCurvePoint2D(point);
 				}
 			}
-			//else if (pDoc->GetEditMode()==CUTTING_MODE)
-			//{
-			//	pDoc->GetMeshCutting().InputCurvePoint2D(point);
-			//}
-			//else if (pDoc->GetEditMode()==EXTRUSION_MODE)
-			//{
-			//	pDoc->GetMeshExtrusion().InputCurvePoint2D(point);
-			//}
-			//else if (pDoc->GetEditMode()==SMOOTHING_MODE)
-			//{
-			//	SetCursor(hCursor_Smooth);
-			//	pDoc->GetMeshSmoothing().Init(pDoc);
-			//	pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
-			//	pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
-			//}
+			else if (pDoc->GetEditMode()==CUTTING_MODE)
+			{
+				pDoc->GetMeshCutting().InputCurvePoint2D(point);
+			}
+			else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+			{
+				pDoc->GetMeshExtrusion().InputCurvePoint2D(point);
+			}
+			else if (pDoc->GetEditMode()==SMOOTHING_MODE)
+			{
+				this->setCursor(*qCursor_Smooth);
+				pDoc->GetMeshSmoothing().Init(pDoc);
+				pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
+				pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+			}
 		}
 	}
 	else if (PressedButton==Qt::RightButton)
@@ -223,10 +224,10 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 				{
 					pDoc->GetMeshDeformation().SetSelectedItem();
 				}
-		//		else if (pDoc->GetEditMode()==EXTRUSION_MODE)
-		//		{
-		//			pDoc->GetMeshExtrusion().SetSelectedItem();
-		//		}
+				else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+				{
+					pDoc->GetMeshExtrusion().SetSelectedItem();
+				}
 			}
 			else
 			{
@@ -238,10 +239,10 @@ void SketchViewer::mousePressEvent(QMouseEvent *event)
 				{
 					pDoc->GetMeshDeformation().SetSelectedItem();
 				}
-		//		else if (pDoc->GetEditMode()==EXTRUSION_MODE)
-		//		{
-		//			pDoc->GetMeshExtrusion().SetSelectedItem();
-		//		}
+				else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+				{
+					pDoc->GetMeshExtrusion().SetSelectedItem();
+				}
 			}
 		}
 		else if (pDoc->GetManipMode()==SKETCH_MODE)
@@ -288,18 +289,18 @@ void SketchViewer::mouseReleaseEvent(QMouseEvent *event)
 			{
 				pDoc->GetMeshDeformation().Conver2DCurveTo3D(pDoc->GetMesh());
 			}
-		//	else if (pDoc->GetEditMode()==CUTTING_MODE)
-		//	{
-		//		pDoc->GetMeshCutting().Conver2DCurveTo3D(pDoc->GetMesh());
-		//	}
-		//	else if (pDoc->GetEditMode()==EXTRUSION_MODE)
-		//	{
-		//		pDoc->GetMeshExtrusion().Conver2DCurveTo3D(pDoc->GetMesh());
-		//	}
-		//	else if(pDoc->GetEditMode()==SMOOTHING_MODE)
-		//	{
-		//		pDoc->GetMeshSmoothing().ClearROI();
-		//	}
+			else if (pDoc->GetEditMode()==CUTTING_MODE)
+			{
+				pDoc->GetMeshCutting().Conver2DCurveTo3D(pDoc->GetMesh());
+			}
+			else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+			{
+				pDoc->GetMeshExtrusion().Conver2DCurveTo3D(pDoc->GetMesh());
+			}
+			else if(pDoc->GetEditMode()==SMOOTHING_MODE)
+			{
+				pDoc->GetMeshSmoothing().ClearROI();
+			}
 		}
 	}
 	else if (PressedButton==Qt::RightButton)
@@ -363,11 +364,11 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 				this->setCursor(*qCursor_Move);
 				pDoc->GetMeshDeformation().ManipSelItem(g_iStepX,g_iStepY);
 			}
-	//		else if (pDoc->GetEditMode()==EXTRUSION_MODE && (nFlags & MK_LBUTTON))
-	//		{
-	//			SetCursor(hCursor_Rotate);
-	//			pDoc->GetMeshExtrusion().ManipSelItem(g_iStepX,g_iStepY);
-	//		}
+			else if (pDoc->GetEditMode()==EXTRUSION_MODE && (event->buttons()&Qt::LeftButton))
+			{
+				this->setCursor(*qCursor_Rotate);
+				pDoc->GetMeshExtrusion().ManipSelItem(g_iStepX,g_iStepY);
+			}
 		}
 	}
 	else if (pDoc->GetManipMode()==SKETCH_MODE)
@@ -405,23 +406,23 @@ void SketchViewer::mouseMoveEvent(QMouseEvent *event)
 			}
 
 		}
-	//	else if (pDoc->GetEditMode()==CUTTING_MODE && (nFlags & MK_LBUTTON))
-	//	{
-	//		pDoc->GetMeshCutting().InputCurvePoint2D(point);
-	//	}
-	//	else if (pDoc->GetEditMode()==EXTRUSION_MODE && (nFlags & MK_LBUTTON))
-	//	{
-	//		pDoc->GetMeshExtrusion().InputCurvePoint2D(point);
-	//	}
-	//	else if (pDoc->GetEditMode()==SMOOTHING_MODE && (nFlags & MK_LBUTTON))
-	//	{
-	//		//if (GetKeyState(0x46)<0)//f key pressed,scratch to smooth
-	//		//{
-	//		SetCursor(hCursor_Smooth);
-	//		pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
-	//		pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
-			//}
-	//	}
+		else if (pDoc->GetEditMode()==CUTTING_MODE && (event->buttons()&Qt::LeftButton))
+		{
+			pDoc->GetMeshCutting().InputCurvePoint2D(point);
+		}
+		else if (pDoc->GetEditMode()==EXTRUSION_MODE && (event->buttons()&Qt::LeftButton))
+		{
+			pDoc->GetMeshExtrusion().InputCurvePoint2D(point);
+		}
+		else if (pDoc->GetEditMode()==SMOOTHING_MODE && (event->buttons()&Qt::LeftButton))
+		{
+			if (GetKeyState(0x46)<0)//f key pressed,scratch to smooth
+			{
+				this->setCursor(*qCursor_Smooth);
+				pDoc->GetMeshSmoothing().InputCurvePoint2D(point);
+				pDoc->GetMeshSmoothing().PaintROIVertices(pDoc->GetMesh(),this->modelview,this->projection,this->viewport);
+			}
+		}
 	}
 
 	g_iLastPosX  = point.x();
@@ -461,15 +462,14 @@ void SketchViewer::wheelEvent(QWheelEvent *event)
 		{
 			pDoc->GetMeshDeformation().AdjustPlaneBoundary(event->delta());
 		}
-	//	else if (pDoc->GetEditMode()==EXTRUSION_MODE)
-	//	{
-	//		pDoc->GetMeshExtrusion().AdjustPlaneBoundary(zDelta);
-	//	}
-	//}
+		else if (pDoc->GetEditMode()==EXTRUSION_MODE)
+		{
+			pDoc->GetMeshExtrusion().AdjustPlaneBoundary(event->delta());
+		}
+	}
 	else if (pDoc->GetManipMode()==SKETCH_MODE)
 	{
 		//do nothing
-	}
 	}
 
 	updateGL();
@@ -761,16 +761,16 @@ void SketchViewer::Render(GLenum mode)
 		{
 			this->renderText(5,25,QString("Extrusion Mode"),QFont("arial",static_cast<int>(1*20)));
 		}
-		//pDoc->GetMeshExtrusion().Render(pDoc->GetViewStyle(),mode);
+		pDoc->GetMeshExtrusion().Render(pDoc->GetViewStyle(),mode);
 		break;
 	case CUTTING_MODE:
 		this->renderText(5,25,QString("Cutting Mode"),QFont("arial",static_cast<int>(1*20)));
-		//pDoc->GetMeshCutting().Render(pDoc->GetViewStyle(),mode);
+		pDoc->GetMeshCutting().Render(pDoc->GetViewStyle(),mode);
 		break;
 	case SMOOTHING_MODE:
 		this->renderText(5,25,QString("Smoothing Mode"),QFont("arial",static_cast<int>(1*20)));
-		//pDoc->GetMeshSmoothing().Render(pDoc->GetViewStyle(),
-		//	this->modelview,this->projection,this->viewport,mode);
+		pDoc->GetMeshSmoothing().Render(pDoc->GetViewStyle(),
+			this->modelview,this->projection,this->viewport,mode);
 		break;
 	case TEST_MODE:
 		this->renderText(5,25,QString("Test Mode"),QFont("arial",static_cast<int>(1*20)));
