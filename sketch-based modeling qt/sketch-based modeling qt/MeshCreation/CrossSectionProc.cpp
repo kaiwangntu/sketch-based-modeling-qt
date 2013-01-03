@@ -711,9 +711,6 @@ bool CCrossSectionProc::FitSpecifiedCN(int iSpecifiedCN,Plane_3 RefPlane[3],vect
 				NewProfile2D,vecCurveNetwork.at(iSpecifiedCN).ProfilePlaneType);
 			vecCurveNetwork.at(iSpecifiedCN).Profile2D.push_back(NewProfile2D);
 		}
-
-		//test
-		//ExportCrossSections("test.contour",vecCurveNetwork);
 	}
 	GetCurvePlaneIntersectPoints(vecCurveNetwork,RefPlane,vecCurvePlaneIntersectPoint,vecCurvePlaneIntersectType);
 	return bResult;
